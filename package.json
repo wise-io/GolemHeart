@@ -1,7 +1,11 @@
 {
-  "name": "node.js-v16-on-replit-demo",
+  "name": "Wisebot",
   "version": "0.0.1",
   "dependencies": {
+    "@discordjs/builders": "^0.8.2",
+    "@discordjs/rest": "0.1.0-canary.0",
+    "@replit/database": "^2.0.1",
+    "discord-api-types": "^0.24.0",
     "discord.js": "^13.3.1",
     "node": "^16.13.0"
   }

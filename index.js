@@ -1,9 +1,19 @@
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, Collection } = require('discord.js');
+const fs = require('fs');
+
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const token = process.env.DISCORD_TOKEN;
 
-client.on('ready', () => {
-  console.log("Logged in as " + client.user.username);
-});
+client.commands = new Collection();
 
-client.login(token);
+const functions = fs.readdirSync("./functions").filter(file => file.endsWith(".js"));
+const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
+const commandFolders = fs.readdirSync("./commands");
+
+(async () => {
+  for (file of functions) {
+    require(`./functions/${file}`)(client);
+  }
+  client.handleEvents(eventFiles, "./events");
+  client.handleCommands(commandFolders, "./commands");
+  client.login(process.env['DISCORD_TOKEN']);
+})();
