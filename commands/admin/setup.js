@@ -1,4 +1,5 @@
-const { Permissions, SlashCommandBuilder } = require('@discordjs/builders');
+const { Permissions } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Database = require("@replit/database");
 const db = new Database();
 
@@ -26,6 +27,7 @@ module.exports = {
     }
     
     await db.set('wishlist_channel', channel);
+    console.log(`Setup - Wishlist channel set to ${channel}.`);
     await interaction.reply({ content: `Wishlists will be sent to the ${channel} channel.`, ephemeral: true });
   },
 };
