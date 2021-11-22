@@ -33,10 +33,11 @@ module.exports = {
         } else if (interaction.customId.includes('d20')) {
           sides = 20;
         }
+        var result = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+        if (result == '20') { result = 'natural 20! Nice!' }
+        await interaction.reply({ content: `${interaction.user} rolled a D${sides} and got a ${result}!` })
       }
-      var result = Math.round(Math.random() * sides) + 1;
-      if (result == '20') { result = 'nat 20! Nice!' }
-      await interaction.reply({ content: `${interaction.user} rolled a D${sides} and got a ${result}!` })
+
     }
   },
 };

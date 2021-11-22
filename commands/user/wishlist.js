@@ -14,7 +14,7 @@ module.exports = {
         .setRequired(true)),
 
   async execute(interaction, client) {
-    const wishlistLink = interaction.options.getString('link')
+    const wishlistLink = interaction.options.getString('link');
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Wishlist`)
@@ -32,14 +32,3 @@ module.exports = {
     await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
   },
 };
-
-/* Future Enhancements:
-
-- Make confirmation message temporary.
-- Delete previously submitted wishlists for a user automatically.
-- Enable customizations:
-  - embed color
-  - description
-  - footer message
-
-*/
