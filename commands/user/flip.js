@@ -13,10 +13,10 @@ module.exports = {
         .addChoice('Tails', 2)
     ),
   async execute(interaction) {
+    const file = new MessageAttachment('./assets/mtg_coin.png');
     const result = (Math.random() < 0.5) + 1;
     var resultString = '';
     if (result == 1) { resultString = 'Heads'; } else { resultString = 'Tails'; }
-    const file = new MessageAttachment('./assets/mtg_coin.png');
     var embed = new MessageEmbed()
       .setColor('#FFB005')
       .setTitle(`Let's Flip a Coin!`)
