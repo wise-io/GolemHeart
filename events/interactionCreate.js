@@ -15,29 +15,6 @@ module.exports = {
       }
     }
 
-    if (interaction.isButton()) {
-
-      // Roll command buttons
-      if (interaction.customId.includes('roll-')) {
-        if (interaction.customId.includes('d3')) {
-          var sides = 3;
-        } else if (interaction.customId.includes('d6')) {
-          var sides = 6;
-        } else if (interaction.customId.includes('d10')) {
-          var sides = 10;
-        } else if (interaction.customId.includes('d12')) {
-          var sides = 12;
-        } else if (interaction.customId.includes('d20')) {
-          var sides = 20;
-        }
-        var result = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-        if (result == '20') {
-          result = 'natural 20! Nice';
-        } else if (result <= (sides / 2) && sides > 3) {
-          result = result + '... Better luck next time';
-        }
-        await interaction.reply({ content: `${interaction.user} rolled a D${sides} and got a ${result}!` })
-      }
-    }
+    if (interaction.isButton()) {}
   },
 };
