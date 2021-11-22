@@ -46,15 +46,15 @@ module.exports = {
             { name: 'Roll 1', value: `${result1}`, inline: true },
             { name: 'Roll 2', value: `${result2}`, inline: true },
           )
-        if (quantity == 2){
-          embed = new MessageEmbed(embed).addFields({name: 'Roll Total', value: `${totalResult}`});
+        if (quantity == 2) {
+          embed = new MessageEmbed(embed).addFields({ name: 'Roll Total', value: `${totalResult}` });
         } else if (quantity == 3) {
           const result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
           totalResult = totalResult + result3;
           embed = new MessageEmbed(embed).addFields(
             { name: 'Roll 3', value: `${result3}`, inline: true },
-            { name: 'Roll Total', value: `${totalResult}`},
-            )
+            { name: 'Roll Total', value: `${totalResult}` },
+          )
         } else if (quantity == 4) {
           const result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
           const result4 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
@@ -71,7 +71,7 @@ module.exports = {
         var result = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
         if (result == '20') {
           result = 'natural 20! Nice';
-        } else if (result <= (sides/2)) {
+        } else if (result <= (sides / 2) && sides > 3) {
           result = result + '... Better luck next time';
         }
         embed = new MessageEmbed(embed).setDescription(`${interaction.user} rolled a D${sides} and got a ${result}!`);

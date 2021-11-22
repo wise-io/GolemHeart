@@ -33,7 +33,7 @@ module.exports = {
         var result = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
         if (result == '20') {
           result = 'natural 20! Nice';
-        } else if (result <= (sides / 2)) {
+        } else if (result <= (sides / 2) && sides > 3) {
           result = result + '... Better luck next time';
         }
         await interaction.reply({ content: `${interaction.user} rolled a D${sides} and got a ${result}!` })
