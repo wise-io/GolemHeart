@@ -11,7 +11,7 @@ module.exports = {
         await command.execute(interaction, client);
       } catch (error) {
         console.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        await interaction.reply({ content: 'There was an error while executing this command!\nPlease report this issue at https://golemheart.io/issues .', ephemeral: true });
       }
     }
 
