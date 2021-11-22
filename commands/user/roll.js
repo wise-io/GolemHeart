@@ -30,7 +30,7 @@ module.exports = {
     var embed = new MessageEmbed()
       .setColor('#e8586d')
       .setTitle("Let's Roll!")
-      .setDescription('Select a die to roll. Good luck!')
+      .setDescription('Select a die to roll. Good luck!\n\n_Hint: Anyone can click on a button below to roll a die._')
       .setThumbnail('attachment://game_die.png')
 
     const sides = interaction.options.getInteger('die');
@@ -42,7 +42,7 @@ module.exports = {
         var result3 = 0;
         var result4 = 0;
         embed = new MessageEmbed(embed)
-          .setDescription(`${interaction.user} rolled a few D${sides} dice. Here are the results!\n\n_Want to roll your own dice? Use the /roll command._`)
+          .setDescription(`${interaction.user} rolled a few D${sides} dice. Here are the results!\n\n_Hint: Want to roll your own dice? Use the /roll command._`)
 
         row = new MessageActionRow(row)
           .addComponents(
