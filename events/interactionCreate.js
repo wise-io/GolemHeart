@@ -19,22 +19,23 @@ module.exports = {
 
       // Roll command buttons
       if (interaction.customId.includes('roll-')) {
-        var sides = 0;
-        if (interaction.customId.includes('d4')) {
-          sides = 4;
+        if (interaction.customId.includes('d3')) {
+          var sides = 3;
         } else if (interaction.customId.includes('d6')) {
-          sides = 6;
-        } else if (interaction.customId.includes('d8')) {
-          sides = 8;
+          var sides = 6;
         } else if (interaction.customId.includes('d10')) {
-          sides = 10;
+          var sides = 10;
         } else if (interaction.customId.includes('d12')) {
-          sides = 12;
+          var sides = 12;
         } else if (interaction.customId.includes('d20')) {
-          sides = 20;
+          var sides = 20;
         }
         var result = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-        if (result == '20') { result = 'natural 20! Nice!' }
+        if (result == '20') {
+          result = 'natural 20! Nice';
+        } else if (result <= (sides / 2)) {
+          result = result + '... Better luck next time';
+        }
         await interaction.reply({ content: `${interaction.user} rolled a D${sides} and got a ${result}!` })
       }
 
