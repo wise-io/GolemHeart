@@ -38,7 +38,6 @@ module.exports = {
         }
         await interaction.reply({ content: `${interaction.user} rolled a D${sides} and got a ${result}!` })
       }
-
     }
   },
 };
