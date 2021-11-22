@@ -15,14 +15,16 @@ module.exports = {
         .addChoice('D8', 8)
         .addChoice('D10', 10)
         .addChoice('D12', 12)
-        .addChoice('D20', 20))
+        .addChoice('D20', 20)
+      )
     .addIntegerOption(option =>
       option.setName('quantity')
         .setDescription('Select the amount of dice to roll (default: one).')
         .setRequired(false)
         .addChoice('Two', 2)
         .addChoice('Three', 3)
-        .addChoice('Four', 4)),
+        .addChoice('Four', 4)
+      ),
 
   async execute(interaction) {
     const file = new MessageAttachment('./assets/game_die.png');
@@ -94,8 +96,9 @@ module.exports = {
           .addComponents(
             new MessageButton()
               .setCustomId(`totalResult`)
-              .setLabel(`Roll Total - ${totalResult}`)
+              .setLabel(`Total - ${totalResult}`)
               .setStyle('PRIMARY')
+              .setEmoji('🎲')
               .setDisabled(true),
           )
 
