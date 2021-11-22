@@ -26,46 +26,78 @@ module.exports = {
 
   async execute(interaction) {
     const file = new MessageAttachment('./assets/game_die.png');
+    var row = new MessageActionRow();
     var embed = new MessageEmbed()
       .setColor('#e8586d')
       .setTitle("Let's Roll!")
       .setDescription('Select a die to roll. Good luck!')
       .setThumbnail('attachment://game_die.png')
-      .setFooter('Want to roll your own dice? Use the /roll command.', 'attachment://game_die.png')
 
     const sides = interaction.options.getInteger('die');
     if (sides) {
-      const quantity = interaction.options.getInteger('quantity')
+      const quantity = interaction.options.getInteger('quantity');
       if (quantity) {
         const result1 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
         const result2 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-        var totalResult = result1 + result2;
+        var result3 = 0;
+        var result4 = 0;
         embed = new MessageEmbed(embed)
-          .setDescription(`${interaction.user} rolled a few D${sides} dice. Here are the results!`)
-          .addFields(
-            { name: 'Roll 1', value: `${result1}`, inline: true },
-            { name: 'Roll 2', value: `${result2}`, inline: true },
+          .setDescription(`${interaction.user} rolled a few D${sides} dice. Here are the results!\n\n_Want to roll your own dice? Use the /roll command._`)
+
+        row = new MessageActionRow(row)
+          .addComponents(
+            new MessageButton()
+              .setCustomId(`result1`)
+              .setLabel(`1st Roll - ${result1}`)
+              .setStyle('SECONDARY')
+              .setDisabled(true),
+
+            new MessageButton()
+              .setCustomId(`result2`)
+              .setLabel(`2nd Roll - ${result2}`)
+              .setStyle('SECONDARY')
+              .setDisabled(true),
           )
-        if (quantity == 2) {
-          embed = new MessageEmbed(embed).addFields({ name: 'Roll Total', value: `${totalResult}` });
-        } else if (quantity == 3) {
-          const result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-          totalResult = totalResult + result3;
-          embed = new MessageEmbed(embed).addFields(
-            { name: 'Roll 3', value: `${result3}`, inline: true },
-            { name: 'Roll Total', value: `${totalResult}` },
-          )
+        if (quantity == 3) {
+          result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+          row = new MessageActionRow(row)
+            .addComponents(
+              new MessageButton()
+                .setCustomId(`result3`)
+                .setLabel(`3rd Roll - ${result3}`)
+                .setStyle('SECONDARY')
+                .setDisabled(true),
+            )
+
         } else if (quantity == 4) {
-          const result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-          const result4 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-          totalResult = totalResult + result3 + result4;
-          embed = new MessageEmbed(embed)
-            .addFields(
-              { name: 'Roll 3', value: `${result3}`, inline: true },
-              { name: 'Roll 4', value: `${result4}`, inline: true },
-              { name: 'Roll Total', value: `${totalResult}` },
+          result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+          result4 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+
+          row = new MessageActionRow(row)
+            .addComponents(
+              new MessageButton()
+                .setCustomId(`result3`)
+                .setLabel(`3rd Roll - ${result3}`)
+                .setStyle('SECONDARY')
+                .setDisabled(true),
+
+              new MessageButton()
+                .setCustomId(`result4`)
+                .setLabel(`4th Roll - ${result4}`)
+                .setStyle('SECONDARY')
+                .setDisabled(true),
             )
         }
+
+        const totalResult = result1 + result2 + result3 + result4
+        row = new MessageActionRow(row)
+          .addComponents(
+            new MessageButton()
+              .setCustomId(`totalResult`)
+              .setLabel(`Roll Total - ${totalResult}`)
+              .setStyle('PRIMARY')
+              .setDisabled(true),
+          )
 
       } else {
         var result = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
@@ -77,10 +109,8 @@ module.exports = {
         embed = new MessageEmbed(embed).setDescription(`${interaction.user} rolled a D${sides} and got a ${result}!`);
       }
 
-      await interaction.reply({ embeds: [embed], files: [file] });
-
     } else {
-      const row = new MessageActionRow()
+      var row = new MessageActionRow()
         .addComponents(
           new MessageButton()
             .setCustomId('roll-d3')
@@ -107,8 +137,9 @@ module.exports = {
             .setLabel('D20')
             .setStyle('SECONDARY'),
         )
-
-      await interaction.reply({ embeds: [embed], files: [file], components: [row] });
     }
+
+    await interaction.reply({ embeds: [embed], files: [file], components: [row] });
+
   },
 };
