@@ -2,7 +2,7 @@ const { Client, Intents, Collection } = require('discord.js');
 const keepAlive = require('./server.js')
 const fs = require('fs');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
 const functions = fs.readdirSync("./functions").filter(file => file.endsWith(".js"));

@@ -22,13 +22,13 @@ module.exports = {
   async execute(interaction) {
     const sides = interaction.options.getInteger('sides');
     const quantity = interaction.options.getInteger('quantity');
+    const hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
 
     const file = new MessageAttachment('./assets/game_die.png');
     var row = new MessageActionRow();
     var embed = new MessageEmbed()
       .setColor('#e8586d')
       .setTitle("Let's Roll!")
-      .setDescription('Select a die to roll. Good luck!\n\n_Hint: Anyone can click on a button below to roll a die._')
       .setThumbnail('attachment://game_die.png')
 
     var result1 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
@@ -41,7 +41,7 @@ module.exports = {
       if (quantity == 2) { quantityString = 'couple'; }
 
       embed = new MessageEmbed(embed)
-        .setDescription(`${interaction.user} rolled a ${quantityString} D${sides} dice. Here are the results!\n\n_Hint: Want to roll your own dice? Use the /roll command._`)
+        .setDescription(`${interaction.user} rolled a ${quantityString} D${sides} dice. Here are the results!${hintString}`)
 
       row = new MessageActionRow(row)
         .addComponents(
@@ -103,9 +103,9 @@ module.exports = {
       if (result1 == '20') {
         result1 = 'natural 20! Nice';
       } else if (result1 <= (sides / 2) && sides > 3) {
-        result1 = result1 + '... Better luck next time';
+        result1 = result1 + '. Better luck next time';
       }
-      embed = new MessageEmbed(embed).setDescription(`${interaction.user} rolled a D${sides} and got a ${result1}!\n\n_Hint: Want to roll your own dice? Use the /roll command._`);
+      embed = new MessageEmbed(embed).setDescription(`${interaction.user} rolled a D${sides} and got a ${result1}!${hintString}`);
     }
 
     if (!quantity) {

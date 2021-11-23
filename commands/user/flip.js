@@ -13,26 +13,36 @@ module.exports = {
         .addChoice('Tails', 2)
     ),
   async execute(interaction) {
+    const hintString = `\n\n_Hint: Want to flip your own coin? Use the /flip command._`;
     const file = new MessageAttachment('./assets/mtg_coin.png');
     const result = (Math.random() < 0.5) + 1;
     var resultString = '';
-    if (result == 1) { resultString = 'Heads'; } else { resultString = 'Tails'; }
+    if (result == 1) { resultString = 'heads'; } else { resultString = 'tails'; }
     var embed = new MessageEmbed()
       .setColor('#FFB005')
       .setTitle(`Let's Flip a Coin!`)
-      .setDescription(`${interaction.user} got ${resultString}!\n\n_Hint: Want to flip your own coin? Use the /flip command._`)
+      .setDescription(`${interaction.user} got **${resultString}**!${hintString}`)
       .setThumbnail('attachment://mtg_coin.png')
 
     const call = interaction.options.getInteger('call');
+    var consecWins = 0;
     if (call) {
       var callString = '';
-      if (call == 1) { callString = 'Heads'; } else { callString = 'Tails'; }
+      var pluralString = '';
+      if (call == 1) { callString = 'heads'; } else { callString = 'tails'; }
       if (call == result) {
+        consecWins = consecWins + 1;
+        if (consecWins > 1) { pluarlString = 's' };
         var embed = new MessageEmbed(embed)
-          .setDescription(`${interaction.user} called ${callString} and won the flip! Nice call!\n\n_Hint: Want to flip your own coin? Use the /flip command._`)
+          .setDescription(`${interaction.user} called **${callString}** and won the flip! They have won ${consecWins} consecutive flip${pluralString}.${hintString}`)
       } else {
-        var embed = new MessageEmbed(embed)
-          .setDescription(`${interaction.user} called ${callString} and lost the flip. Better luck next time!\n\n_Hint: Want to flip your own coin? Use the /flip command._`)
+        if (consecWins == 0) {
+          var embed = new MessageEmbed(embed)
+            .setDescription(`${interaction.user} called **${callString}** and lost the flip. Better luck next time!${hintString}`)
+        } else {
+          var embed = new MessageEmbed(embed)
+            .setDescription(`${interaction.user} called **${callString}** and lost the flip. They ended thier streak with ${consecWins} win${pluralString}.${hintString}`)
+        }
       }
     }
 
