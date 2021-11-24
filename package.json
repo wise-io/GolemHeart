@@ -13,8 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node index.js",
-    "start": "node server.js"
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
