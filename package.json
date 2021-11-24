@@ -1,6 +1,7 @@
 {
-  "name": "Wisebot",
+  "name": "golemheart",
   "version": "0.0.1",
+  "main": "index.js",
   "dependencies": {
     "@discordjs/builders": "^0.8.2",
     "@discordjs/rest": "0.1.0-canary.0",
@@ -9,5 +10,20 @@
     "discord.js": "^13.3.1",
     "express": "^4.17.1",
     "node": "^16.13.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wise-io/GolemHeart.git"
+  },
+  "author": "Aaron J. Stevenson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wise-io/GolemHeart/issues"
+  },
+  "homepage": "https://github.com/wise-io/GolemHeart#readme"
 }
