@@ -3,3 +3,6 @@
 
 # Dependency directories
 node_modules/
+
+# Other environment specific files
+.breakpoints
