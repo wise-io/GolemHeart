@@ -9,15 +9,15 @@ module.exports = {
       option.setName('call')
         .setDescription('Call the flip.')
         .setRequired(false)
-        .addChoice('Heads', 1)
-        .addChoice('Tails', 2)
+        .addChoice('Heads', 0)
+        .addChoice('Tails', 1)
     ),
   async execute(interaction) {
     const hintString = `\n\n_Hint: Want to flip your own coin? Use the /flip command._`;
     const file = new MessageAttachment('./assets/mtg_coin.png');
-    const result = (Math.random() < 0.5) + 1;
+    const result = (Math.random() < 0.5);
     var resultString = '';
-    if (result == 1) { resultString = 'heads'; } else { resultString = 'tails'; }
+    if (result == 0) { resultString = 'heads'; } else { resultString = 'tails'; }
     var embed = new MessageEmbed()
       .setColor('#FFB005')
       .setTitle(`Let's Flip a Coin!`)
@@ -26,10 +26,10 @@ module.exports = {
 
     const call = interaction.options.getInteger('call');
     var consecWins = 0;
-    if (call) {
+    if (call !== null ) {
       var callString = '';
       var pluralString = '';
-      if (call == 1) { callString = 'heads'; } else { callString = 'tails'; }
+      if (call == 0) { callString = 'heads'; } else { callString = 'tails'; }
       if (call == result) {
         consecWins = consecWins + 1;
         if (consecWins > 1) { pluarlString = 's' };
