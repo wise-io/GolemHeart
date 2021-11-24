@@ -1,6 +1,7 @@
 const { Client, Intents, Collection } = require('discord.js');
 const keepAlive = require('./server.js')
 const fs = require('fs');
+//require('dotenv').config();
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
