@@ -9,12 +9,16 @@ module.exports = {
     .setDescription('List all database keys'),
 
   async execute(interaction) {
-
     if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
-      await interaction.reply({ content: `You must be an administrator to use this command.`, ephemeral: true });
+      await interaction.reply({
+        content: `You must have administrator permissions to use this command.`,
+        ephemeral: true
+      });
       return;
     }
 
-    await interaction.reply({ content: `This command doesn't do anything yet.`, ephemeral: true });
+    const keys = await db.list();
+    console.log(`\nDatabase Keys:\n${keys}\n`);
+    await interaction.reply({ content: `A list of database keys has been sent to the console.`, ephemeral: true });
   },
 };

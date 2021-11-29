@@ -26,7 +26,7 @@ module.exports = {
 
     const call = interaction.options.getInteger('call');
     var consecWins = 0;
-    if (call !== null ) {
+    if (call !== null) {
       var callString = '';
       var pluralString = '';
       if (call == 0) { callString = 'heads'; } else { callString = 'tails'; }
