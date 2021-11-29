@@ -6,6 +6,7 @@ const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
+client.buttons = new Collection();
 const functions = fs.readdirSync("./functions").filter(file => file.endsWith(".js"));
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
 const commandFolders = fs.readdirSync("./commands");
@@ -15,5 +16,6 @@ const commandFolders = fs.readdirSync("./commands");
   for (file of functions) { require(`./functions/${file}`)(client); }
   client.handleEvents(eventFiles, "./events");
   client.handleCommands(commandFolders, "./commands");
+  client.handleButtons();
   client.login(process.env['DISCORD_TOKEN']);
 })();
