@@ -10,5 +10,5 @@ module.exports = (client) => {
         client.buttons.set(button.data.name, button);
       }
     }
-  }
-}
+  };
+};
