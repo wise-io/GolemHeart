@@ -14,12 +14,20 @@ module.exports = {
         .setRequired(true)),
 
   async execute(interaction, client) {
-    const wishlistLink = interaction.options.getString('link');
+
+    var wishlistURL = '';
+    try {
+      wishlistURL = new URL(interaction.options.getString('link'));
+    } catch (error) {
+      await interaction.reply({ content: 'The submitted wishlist was not a valid URL. Please try again.', ephemeral: true });
+      return;
+    }
+
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Wishlist`)
-      .setDescription(`${wishlistLink}\n-----\n Please message <@${interaction.user.id}> directly if you would like to send them items on their wishlist. Thanks for making our community a great place!`)
-      .setURL(wishlistLink)
+      .setDescription(`${wishlistURL}\n-----\n Please message <@${interaction.user.id}> directly if you would like to send them items on their wishlist. Thanks for making our community a great place!`)
+      .setURL(wishlistURL)
       .setThumbnail(interaction.user.displayAvatarURL())
       .setFooter('Please remember, this is for gifting purposes only.', interaction.guild.iconURL())
 

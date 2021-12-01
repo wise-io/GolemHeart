@@ -16,6 +16,16 @@ module.exports = {
             .setName('channel')
             .setDescription('Select a channel')
             .setRequired(true))
+    )
+    .addSubcommand(subcommand =>
+      subcommand
+        .setName('brew')
+        .setDescription('Brew command settings')
+        .addChannelOption(option =>
+          option
+            .setName('channel')
+            .setDescription('Select a channel')
+            .setRequired(true))
     ),
 
   async execute(interaction) {
@@ -26,8 +36,14 @@ module.exports = {
       return;
     }
 
-    await db.set('wishlist_channel', channel);
-    console.log(`Setup - Wishlist channel set to ${channel}.`);
-    await interaction.reply({ content: `Wishlists will be sent to the ${channel} channel.`, ephemeral: true });
+    if (interaction.options.getSubcommand() === 'wishlist') {
+      await db.set('wishlist_channel', channel);
+      console.log(`Setup - Wishlist channel set to ${channel}.`);
+      await interaction.reply({ content: `Wishlists will be sent to the ${channel} channel.`, ephemeral: true });
+    } else if (interaction.options.getSubcommand() === 'brew') {
+      await db.set('brew_channel', channel);
+      console.log(`Setup - Brew channel set to ${channel}.`);
+      await interaction.reply({ content: `Brewing threads will be created in the ${channel} channel.`, ephemeral: true });
+    }
   },
 };
