@@ -34,13 +34,16 @@ module.exports = {
         consecWins = consecWins + 1;
         if (consecWins > 1) { pluarlString = 's' };
         var embed = new MessageEmbed(embed)
+          .setColor('#00A300')
           .setDescription(`${interaction.user} called **${callString}** and won the flip! They have won ${consecWins} consecutive flip${pluralString}.${hintString}`)
       } else {
         if (consecWins == 0) {
           var embed = new MessageEmbed(embed)
+            .setColor('#FF0000')
             .setDescription(`${interaction.user} called **${callString}** and lost the flip. Better luck next time!${hintString}`)
         } else {
           var embed = new MessageEmbed(embed)
+            .setColor('#FF0000')
             .setDescription(`${interaction.user} called **${callString}** and lost the flip. They ended thier streak with ${consecWins} win${pluralString}.${hintString}`)
         }
       }
