@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const Database = require("@replit/database");
 const db = new Database();
 
@@ -66,25 +66,46 @@ module.exports = {
       name: interaction.options.getString('title'),
       autoArchiveDuration: timeout,
       type: threadType,
-      reason: `Thread created by GolemHeart using the /brew command, initiated by ${interaction.user.id}.`,
+      reason: `Thread created by GolemHeart using the /brew command, initiated by ${interaction.user}.`,
     });
 
     //Create embed
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Decklist`)
-      .setDescription(interaction.options.getString('decklist'))
+      .setDescription(`${interaction.user} has started a brew! You can find the [decklist here](${decklistURL} '${decklistURL}'). Be sure to invite your friends to help by @mentioning them and have fun brewing together!`)
       .setURL(decklistURL)
       .setFooter(`Created by GolemHeart using the /brew command`, interaction.user.displayAvatarURL())
       .setTimestamp()
       .addFields(
         { name: 'Strategy', value: "```" + `${interaction.options.getString('strategy')}` + "```" },
         { name: 'Goals', value: "```" + `${interaction.options.getString('goals')}` + "```" },
-        { name: '\u200B', value: `_Need help? @mention users to invite them to this thread. Have fun brewing!_`},
+      )
+
+    //Create buttons
+    const row = new MessageActionRow()
+      .addComponents(
+        new MessageButton()
+          .setCustomId('leave-thread')
+          .setLabel('Leave Thread')
+          .setEmoji('🔕')
+          .setStyle('SECONDARY'),
+
+        new MessageButton()
+          .setCustomId('archive-thread')
+          .setLabel('Archive Thread')
+          .setEmoji('📦')
+          .setStyle('SECONDARY'),
+
+        new MessageButton()
+          .setCustomId('lock-thread')
+          .setLabel('Lock Thread')
+          .setEmoji('🔒')
+          .setStyle('DANGER'),
       )
 
     //Send embed, pin it, invite members, and send confirmation message
-    await thread.send({ embeds: [embed] }).then(message => message.pin());
+    await thread.send({ embeds: [embed], components: [row] }).then(message => message.pin());
     await thread.members.add(interaction.user.id);
     await interaction.reply({ content: 'Your thread has been created. Have fun brewing!', ephemeral: true });
   },

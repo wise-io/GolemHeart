@@ -26,7 +26,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Wishlist`)
-      .setDescription(`${wishlistURL}\n-----\n Please message <@${interaction.user.id}> directly if you would like to send them items on their wishlist. Thanks for making our community a great place!`)
+      .setDescription(`${wishlistURL}\n-----\n Please message ${interaction.user} directly if you would like to send them items on their wishlist. Thanks for making our community a great place!`)
       .setURL(wishlistURL)
       .setThumbnail(interaction.user.displayAvatarURL())
       .setFooter('Please remember, this is for gifting purposes only.', interaction.guild.iconURL())
