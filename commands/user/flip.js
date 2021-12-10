@@ -18,6 +18,7 @@ module.exports = {
     const result = (Math.random() < 0.5);
     var resultString = '';
     if (result == 0) { resultString = 'heads'; } else { resultString = 'tails'; }
+
     var embed = new MessageEmbed()
       .setColor('#FFB005')
       .setTitle(`Let's Flip a Coin!`)
@@ -25,30 +26,27 @@ module.exports = {
       .setThumbnail('attachment://mtg_coin.png')
 
     const call = interaction.options.getInteger('call');
-    var consecWins = 0;
     if (call !== null) {
       var callString = '';
-      var pluralString = '';
       if (call == 0) { callString = 'heads'; } else { callString = 'tails'; }
       if (call == result) {
-        consecWins = consecWins + 1;
-        if (consecWins > 1) { pluarlString = 's' };
         var embed = new MessageEmbed(embed)
           .setColor('#00A300')
-          .setDescription(`${interaction.user} called **${callString}** and won the flip! They have won ${consecWins} consecutive flip${pluralString}.${hintString}`)
+          .setDescription(`${interaction.user} called **${callString}** and won the flip!${hintString}`)
       } else {
         if (consecWins == 0) {
           var embed = new MessageEmbed(embed)
             .setColor('#FF0000')
             .setDescription(`${interaction.user} called **${callString}** and lost the flip. Better luck next time!${hintString}`)
+
         } else {
           var embed = new MessageEmbed(embed)
             .setColor('#FF0000')
-            .setDescription(`${interaction.user} called **${callString}** and lost the flip. They ended thier streak with ${consecWins} win${pluralString}.${hintString}`)
+            .setDescription(`${interaction.user} called **${callString}** and lost the flip.${hintString}`)
         }
       }
     }
 
-    await interaction.reply({ embeds: [embed], files: [file] });
+    await interaction.reply({ embeds: [embed], files: [file]});
   },
 };
