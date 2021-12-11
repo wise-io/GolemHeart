@@ -44,10 +44,14 @@ module.exports = {
     }
 
     //Get brew channel from database
-    var channelId = interaction.channel.id;
-    const brew_channel = await db.get('brew_channel');
-    if (brew_channel == null) { return; } else { channelId = brew_channel.id; }
-    const channel = await client.channels.fetch(channelId);
+    var channel = '';
+    const guildObject = await db.get('g' + interaction.guild.id);
+    if (guildObject == null || guildObject.brew_channel === undefined) {
+      await interaction.reply({ content: 'The brew command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
+      return;
+    } else {
+      channel = await client.channels.fetch(guildObject.brew_channel);
+    }
 
     //Determine guild tier and set thread timeout to maximum value
     var timeout = 1440;

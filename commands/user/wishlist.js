@@ -31,12 +31,14 @@ module.exports = {
       .setThumbnail(interaction.user.displayAvatarURL())
       .setFooter('Please remember, this is for gifting purposes only.', interaction.guild.iconURL())
 
-    var channelId = interaction.channel.id;
-    const wishlist_channel = await db.get('wishlist_channel');
-    if (wishlist_channel == null) { return; } else { channelId = wishlist_channel.id; }
-
-    const channel = await client.channels.fetch(channelId);
-    await channel.send({ embeds: [embed] });
-    await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
+    const guildObject = await db.get('g' + interaction.guild.id);
+    if (guildObject == null || guildObject.wishlist_channel === undefined) {
+      await interaction.reply({ content: 'The wishlist command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
+      return;
+    } else {
+      const channel = await client.channels.fetch(guildObject.wishlist_channel);
+      await channel.send({ embeds: [embed] });
+      await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
+    }
   },
 };
