@@ -90,12 +90,6 @@ module.exports = {
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()
-          .setCustomId('leave-thread')
-          .setLabel('Leave Thread')
-          .setEmoji('🔕')
-          .setStyle('SECONDARY'),
-
-        new MessageButton()
           .setCustomId('archive-thread')
           .setLabel('Archive Thread')
           .setEmoji('📦')
