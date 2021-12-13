@@ -25,19 +25,19 @@ module.exports = {
     const hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
 
     const file = new MessageAttachment('./assets/game_die.png');
-    var row = new MessageActionRow();
-    var embed = new MessageEmbed()
+    let row = new MessageActionRow();
+    let embed = new MessageEmbed()
       .setColor('#e8586d')
       .setTitle("Let's Roll!")
       .setThumbnail('attachment://game_die.png')
 
-    var result1 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+    let result1 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
 
     if (quantity) {
-      var result2 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-      var result3 = 0;
-      var result4 = 0;
-      var quantityString = 'few';
+      let result2 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+      let result3 = 0;
+      let result4 = 0;
+      let quantityString = 'few';
       if (quantity == 2) { quantityString = 'couple'; }
 
       embed = new MessageEmbed(embed)

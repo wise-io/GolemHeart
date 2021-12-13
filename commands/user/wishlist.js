@@ -15,7 +15,7 @@ module.exports = {
 
   async execute(interaction, client) {
 
-    var wishlistURL = '';
+    let wishlistURL = '';
     try {
       wishlistURL = new URL(interaction.options.getString('link'));
     } catch (error) {

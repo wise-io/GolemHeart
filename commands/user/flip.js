@@ -16,37 +16,31 @@ module.exports = {
     const hintString = `\n\n_Hint: Want to flip your own coin? Use the /flip command._`;
     const file = new MessageAttachment('./assets/mtg_coin.png');
     const result = (Math.random() < 0.5);
-    var resultString = '';
+    let resultString = '';
     if (result == 0) { resultString = 'heads'; } else { resultString = 'tails'; }
 
-    var embed = new MessageEmbed()
-      .setColor('#FFB005')
+    let embed = new MessageEmbed()
       .setTitle(`Let's Flip a Coin!`)
-      .setDescription(`${interaction.user} got **${resultString}**!${hintString}`)
       .setThumbnail('attachment://mtg_coin.png')
 
     const call = interaction.options.getInteger('call');
     if (call !== null) {
-      var callString = '';
+      let callString = '';
       if (call == 0) { callString = 'heads'; } else { callString = 'tails'; }
       if (call == result) {
-        var embed = new MessageEmbed(embed)
+        embed = new MessageEmbed(embed)
           .setColor('#00A300')
           .setDescription(`${interaction.user} called **${callString}** and won the flip!${hintString}`)
       } else {
-        if (consecWins == 0) {
-          var embed = new MessageEmbed(embed)
-            .setColor('#FF0000')
-            .setDescription(`${interaction.user} called **${callString}** and lost the flip. Better luck next time!${hintString}`)
-
-        } else {
-          var embed = new MessageEmbed(embed)
-            .setColor('#FF0000')
-            .setDescription(`${interaction.user} called **${callString}** and lost the flip.${hintString}`)
-        }
+        embed = new MessageEmbed(embed)
+          .setColor('#FF0000')
+          .setDescription(`${interaction.user} called **${callString}** and lost the flip. Better luck next time!${hintString}`)
       }
+    } else {
+      embed = new MessageEmbed(embed)
+        .setColor('#FFB005')
+        .setDescription(`${interaction.user} got **${resultString}**!${hintString}`)
     }
-
-    await interaction.reply({ embeds: [embed], files: [file]});
+    await interaction.reply({ embeds: [embed], files: [file] });
   },
 };

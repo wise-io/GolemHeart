@@ -35,7 +35,7 @@ module.exports = {
   async execute(interaction, client) {
 
     //Check if decklist is valid url
-    var decklistURL = '';
+    let decklistURL = '';
     try {
       decklistURL = new URL(interaction.options.getString('decklist'));
     } catch (error) {
@@ -44,7 +44,7 @@ module.exports = {
     }
 
     //Get brew channel from database
-    var channel = '';
+    let channel = '';
     const guildObject = await db.get('g' + interaction.guild.id);
     if (guildObject == null || guildObject.brew_channel === undefined) {
       await interaction.reply({ content: 'The brew command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
@@ -54,7 +54,7 @@ module.exports = {
     }
 
     //Determine guild tier and set thread timeout to maximum value
-    var timeout = 1440;
+    let timeout = 1440;
     if (interaction.guild.premiumTier === 'TIER_1') {
       timeout = 4320;
     } else if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') {
@@ -62,7 +62,7 @@ module.exports = {
     }
 
     //Create thread
-    var threadType = 'GUILD_PUBLIC_THREAD';
+    let threadType = 'GUILD_PUBLIC_THREAD';
     if (interaction.options.getBoolean('private') === 'TRUE') {
       if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') { threadType = 'GUILD_PRIVATE_THREAD'; }
     }
