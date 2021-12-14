@@ -47,7 +47,7 @@ module.exports = {
         guildObject.wishlist_channel = channel.id;
         await db.set('g' + interaction.guild.id, guildObject);
       }
-      console.log(`Setup - Wishlist channel set to ${channel}.`);
+      //console.log(`Setup - Wishlist channel set to ${channel}.`);
       await interaction.reply({ content: `Wishlists will be sent to the ${channel} channel.`, ephemeral: true });
 
     } else if (interaction.options.getSubcommand() === 'brew') {
@@ -61,7 +61,7 @@ module.exports = {
         guildObject.brew_channel = channel.id;
         await db.set('g' + interaction.guild.id, guildObject);
       }
-      console.log(`Setup - Brew channel set to ${channel}.`);
+      //console.log(`Setup - Brew channel set to ${channel}.`);
       await interaction.reply({ content: `Brewing threads will be created in the ${channel} channel.`, ephemeral: true });
     }
   },
