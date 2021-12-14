@@ -5,112 +5,123 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('roll')
     .setDescription('Rolls the dice and returns the result.')
-    .addIntegerOption(option =>
-      option.setName('sides')
-        .setDescription('Select the number of sides on your dice.')
+    .addStringOption(option =>
+      option.setName('dice')
+        .setDescription("Enter your dice in the following format: [quantity]d[sides] - Example: 2d20")
         .setRequired(true)
-    )
-    .addIntegerOption(option =>
-      option.setName('quantity')
-        .setDescription('Select the amount of dice to roll (default: one).')
-        .setRequired(false)
-        .addChoice('2', 2)
-        .addChoice('3', 3)
-        .addChoice('4', 4)
     ),
 
   async execute(interaction) {
-    const sides = interaction.options.getInteger('sides');
-    const quantity = interaction.options.getInteger('quantity');
-    const hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
 
+    //Validate user input format
+    let dice = interaction.options.getString('dice').toLowerCase();
+    let regex = /^[0-9]+/;
+    if (!regex.test(dice)) { dice = '1' + dice; }
+    regex = /^[0-9]+d[0-9]+$/i;
+    if (!regex.test(dice)) {
+      await interaction.reply({ content: "Please try again using the following format for your roll: `[quantity]d[sides]`.\nExample: `/roll dice: 2d20`", ephemeral: true });
+      return;
+    }
+
+    //Validate quantity
+    const quantity = dice.substring(0, dice.indexOf('d'));
+    if (!(quantity > 0 && quantity <= 50)) {
+      await interaction.reply({ content: 'Please keep the dice pool between 1-50.', ephemeral: true });
+      return;
+    }
+
+    //Validate sides
+    const sides = dice.substring(dice.indexOf('d') + 1);
+    if (!(sides > 1 && sides <= 100)) {
+      await interaction.reply({ content: 'Please keep the die size between D2-D100.', ephemeral: true });
+      return;
+    }
+
+    //Create embed
+    const hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
     const file = new MessageAttachment('./assets/game_die.png');
-    let row = new MessageActionRow();
     let embed = new MessageEmbed()
       .setColor('#e8586d')
       .setTitle("Let's Roll!")
       .setThumbnail('attachment://game_die.png')
 
-    let result1 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
+    let results = [];
+    let temp = 0;
 
-    if (quantity) {
-      let result2 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-      let result3 = 0;
-      let result4 = 0;
-      let quantityString = 'few';
-      if (quantity == 2) { quantityString = 'couple'; }
+    if (quantity == 1) {
+      //Calculate result
+      results.push(Math.floor(Math.random() * (Math.floor(sides) - 1) + 1));
 
-      embed = new MessageEmbed(embed)
-        .setDescription(`${interaction.user} rolled a ${quantityString} D${sides} dice. Here are the results!${hintString}`)
-
-      row = new MessageActionRow(row)
-        .addComponents(
-          new MessageButton()
-            .setCustomId('result1')
-            .setLabel(`1st Roll - ${result1}`)
-            .setStyle('SECONDARY')
-            .setDisabled(true),
-
-          new MessageButton()
-            .setCustomId('result2')
-            .setLabel(`2nd Roll - ${result2}`)
-            .setStyle('SECONDARY')
-            .setDisabled(true),
-        )
-      if (quantity == 3) {
-        result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-        row = new MessageActionRow(row)
-          .addComponents(
-            new MessageButton()
-              .setCustomId('result3')
-              .setLabel(`3rd Roll - ${result3}`)
-              .setStyle('SECONDARY')
-              .setDisabled(true),
-          )
-
-      } else if (quantity == 4) {
-        result3 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-        result4 = Math.floor(Math.random() * (Math.floor(sides) - 1) + 1);
-
-        row = new MessageActionRow(row)
-          .addComponents(
-            new MessageButton()
-              .setCustomId('result3')
-              .setLabel(`3rd Roll - ${result3}`)
-              .setStyle('SECONDARY')
-              .setDisabled(true),
-
-            new MessageButton()
-              .setCustomId('result4')
-              .setLabel(`4th Roll - ${result4}`)
-              .setStyle('SECONDARY')
-              .setDisabled(true),
-          )
+      //Set resultString
+      let resultString = results[0];
+      if (results[0] == '20') {
+        resultString = 'natural 20! Nice';
+      } else if (results[0] <= (sides / 2) && sides > 3) {
+        resultString = resultString + '. Better luck next time';
       }
 
-      const totalResult = result1 + result2 + result3 + result4;
+      //Modify embed
+      embed = new MessageEmbed(embed)
+        .setDescription(`${interaction.user} rolled a D${sides} and got a ${resultString}!${hintString}`);
+
+      //Send reply
+      await interaction.reply({ embeds: [embed], files: [file] });
+
+    } else {
+      // Calculate results
+      while (temp < quantity) {
+        results.push(Math.floor(Math.random() * (Math.floor(sides) - 1) + 1));
+        temp++;
+      }
+
+      //Create strings for embed
+      let resultString = '';
+      let quantityString = '';
+
+      //Create result buttons
+      let row = new MessageActionRow();
+      if (quantity <= 4) {
+
+        if (quantity == 2) {
+          quantityString = 'a couple';
+        } else {
+          quantityString = 'a few';
+        }
+
+        let temp2 = 0;
+        while (temp2 < quantity) {
+          row = new MessageActionRow(row)
+            .addComponents(
+              new MessageButton()
+                .setCustomId(`result${temp2}`)
+                .setLabel(`${results[temp2]}`)
+                .setStyle('SECONDARY')
+                .setDisabled(true),
+            )
+          temp2++;
+        }
+      } else {
+        quantityString = 'several'
+        resultString = "\n\n`" + results + "`";
+      }
+
+      //Create total result button
+      const total = results.reduce((a, b) => a + b, 0);
       row = new MessageActionRow(row)
         .addComponents(
           new MessageButton()
-            .setCustomId(`totalResult`)
-            .setLabel(`Total - ${totalResult}`)
+            .setCustomId(`total`)
+            .setLabel(`Total - ${total}`)
             .setStyle('PRIMARY')
             .setEmoji('🎲')
             .setDisabled(true),
         )
 
-    } else {
-      if (result1 == '20') {
-        result1 = 'natural 20! Nice';
-      } else if (result1 <= (sides / 2) && sides > 3) {
-        result1 = result1 + '. Better luck next time';
-      }
-      embed = new MessageEmbed(embed).setDescription(`${interaction.user} rolled a D${sides} and got a ${result1}!${hintString}`);
-    }
+      //Modify embed
+      embed = new MessageEmbed(embed)
+        .setDescription(`${interaction.user} rolled ${quantityString} D${sides} dice. Here are the results!${resultString}${hintString}`)
 
-    if (!quantity) {
-      await interaction.reply({ embeds: [embed], files: [file] });
-    } else {
+      //Send reply
       await interaction.reply({ embeds: [embed], files: [file], components: [row] });
     }
   },
