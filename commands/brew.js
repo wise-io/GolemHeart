@@ -76,8 +76,8 @@ module.exports = {
     //Create embed
     const embed = new MessageEmbed()
       .setColor('#6DE194')
-      .setTitle(`${interaction.user.username}'s Decklist`)
-      .setDescription(`${interaction.user} has started a brew! You can find the [decklist here](${decklistURL} '${decklistURL}'). Be sure to invite your friends to help by @mentioning them and have fun brewing together!`)
+      .setTitle(`${interaction.user.username}'s Brew`)
+      .setDescription(`${interaction.user} has started a brew! You can find the [decklist here](${decklistURL} '${decklistURL}'). @Mention your friends to get started, and have fun!`)
       .setURL(decklistURL)
       .setFooter(`Created by GolemHeart using the /brew command`, interaction.user.displayAvatarURL())
       .setTimestamp()
@@ -90,13 +90,13 @@ module.exports = {
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()
-          .setCustomId('archive-thread')
+          .setCustomId('brew-archive')
           .setLabel('Archive Thread')
           .setEmoji('📦')
           .setStyle('SECONDARY'),
 
         new MessageButton()
-          .setCustomId('lock-thread')
+          .setCustomId('brew-lock')
           .setLabel('Lock Thread')
           .setEmoji('🔒')
           .setStyle('DANGER'),

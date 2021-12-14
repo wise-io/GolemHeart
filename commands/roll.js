@@ -38,7 +38,7 @@ module.exports = {
     }
 
     //Create embed
-    const hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
+    let rollString = `\n\n_Hint: ${interaction.user.username} used /roll ${dice}_`;
     const file = new MessageAttachment('./assets/game_die.png');
     let embed = new MessageEmbed()
       .setColor('#e8586d')
@@ -62,7 +62,7 @@ module.exports = {
 
       //Modify embed
       embed = new MessageEmbed(embed)
-        .setDescription(`${interaction.user} rolled a D${sides} and got a ${resultString}!${hintString}`);
+        .setDescription(`${interaction.user} rolled a D${sides} and got a ${resultString}!${rollString}`);
 
       //Send reply
       await interaction.reply({ embeds: [embed], files: [file] });
@@ -101,8 +101,9 @@ module.exports = {
           temp2++;
         }
       } else {
-        quantityString = 'several'
-        resultString = "\n\n`" + results + "`";
+        quantityString = 'several';
+        resultString = "\n```" + results.join(", ") + "```";
+        rollString = rollString.substring(1); //Removes 1st line break from rollString
       }
 
       //Create total result button
@@ -119,7 +120,7 @@ module.exports = {
 
       //Modify embed
       embed = new MessageEmbed(embed)
-        .setDescription(`${interaction.user} rolled ${quantityString} D${sides} dice. Here are the results!${resultString}${hintString}`)
+        .setDescription(`${interaction.user} rolled ${quantityString} D${sides} dice. Here are the results!${resultString}${rollString}`)
 
       //Send reply
       await interaction.reply({ embeds: [embed], files: [file], components: [row] });

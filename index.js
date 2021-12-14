@@ -1,19 +1,22 @@
 const { Client, Intents, Collection } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS,] });
 const fs = require('fs');
 //require('dotenv').config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS,] });
-
-client.commands = new Collection();
 client.buttons = new Collection();
-const functions = fs.readdirSync("./functions").filter(file => file.endsWith(".js"));
+client.commands = new Collection();
+
+const buttonFiles = fs.readdirSync("./buttons").filter(file => file.endsWith(".js"));
+const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
-const commandFolders = fs.readdirSync("./commands");
+const functions = fs.readdirSync("./functions").filter(file => file.endsWith(".js"));
+const handlers = fs.readdirSync("./handlers").filter(file => file.endsWith(".js"));
 
 (async () => {
+  for (file of handlers) { require(`./handlers/${file}`)(client); }
   for (file of functions) { require(`./functions/${file}`)(client); }
+  client.handleCommands(commandFiles, "./commands");
   client.handleEvents(eventFiles, "./events");
-  client.handleCommands(commandFolders, "./commands");
-  client.handleButtons();
+  client.handleButtons(buttonFiles, "./buttons");
   client.login(process.env['DISCORD_TOKEN']);
 })();
