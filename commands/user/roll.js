@@ -38,7 +38,7 @@ module.exports = {
     }
 
     //Create embed
-    const hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
+    let hintString = `\n\n_Hint: Want to roll your own dice? Use the /roll command._`;
     const file = new MessageAttachment('./assets/game_die.png');
     let embed = new MessageEmbed()
       .setColor('#e8586d')
@@ -102,7 +102,8 @@ module.exports = {
         }
       } else {
         quantityString = 'several'
-        resultString = "\n\n`" + results + "`";
+        resultString = "\n```" + results.join(", ") + "```";
+        hintString = hintString.substring(1);
       }
 
       //Create total result button
