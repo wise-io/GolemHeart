@@ -101,7 +101,7 @@ module.exports = {
           temp2++;
         }
       } else {
-        quantityString = 'several'
+        quantityString = 'several';
         resultString = "\n```" + results.join(", ") + "```";
         hintString = hintString.substring(1);
       }
