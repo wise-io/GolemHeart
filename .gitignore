@@ -1,8 +1,9 @@
 # dotenv environment variables file
 .env
 
-# Dependency directories
+# Package Files
 node_modules/
+package-lock.json
 
 # Other environment specific files
 .breakpoints
