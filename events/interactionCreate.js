@@ -15,7 +15,7 @@ module.exports = {
       }
     } else if (interaction.isButton()) {
       const button = client.buttons.get(interaction.customId);
-      if (!button) return await interaction.reply({ content: `There was no code found for this button.` });
+      if (!button) return await interaction.reply({ content: `There was no code found for this button.`, ephemeral: true });
       try {
         await button.execute(interaction, client);
       } catch (error) {

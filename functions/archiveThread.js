@@ -1,7 +1,7 @@
 const { Permissions } = require('discord.js');
 
 module.exports = (client) => {
-  client.archiveThread = async ({ lockThread = false }) => {
+  client.archiveThread = async (interaction, { lockThread = false }) => {
     const thread = await client.channels.fetch(interaction.channel.id);
     const threadMessages = await thread.messages.fetch({ after: 1, limit: 1 });
     const message = threadMessages.first();
@@ -27,4 +27,4 @@ module.exports = (client) => {
       await interaction.reply({ content: `Only ${brewer} or an admin can archive/lock this thread.`, ephemeral: true });
     }
   }
-}
+};

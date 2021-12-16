@@ -1,7 +1,6 @@
 module.exports = {
   data: { name: 'lock-thread' },
-
-  async execute(client) {
-    client.archiveThread({ lockThread: true });
+  async execute(interaction, client) {
+    client.archiveThread(interaction, { lockThread : true });
   }
 }
