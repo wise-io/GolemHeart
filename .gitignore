@@ -1,6 +1,9 @@
 # dotenv environment variables file
 .env
 
+# files for local changes
+local.patch
+
 # Package Files
 node_modules/
 package-lock.json
