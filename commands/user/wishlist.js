@@ -37,6 +37,11 @@ module.exports = {
       return;
     } else {
       const channel = await client.channels.fetch(guildObject.wishlist_channel);
+      const messages = await channel.messages.fetch({limit: 100});
+      const filteredMessages = messages
+                                .filter(m => m.author === client.user)
+                                .filter(m => m.embeds[0].description.includes(`<@${interaction.user.id}>`));
+      filteredMessages.each(m => m.delete());
       await channel.send({ embeds: [embed] });
       await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
     }
