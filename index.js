@@ -13,10 +13,11 @@ const functions = fs.readdirSync("./functions").filter(file => file.endsWith(".j
 const handlers = fs.readdirSync("./handlers").filter(file => file.endsWith(".js"));
 
 (async () => {
-  for (file of handlers) { require(`./handlers/${file}`)(client); }
   for (file of functions) { require(`./functions/${file}`)(client); }
+  for (file of handlers) { require(`./handlers/${file}`)(client); }
+  client.handleButtons(buttonFiles, "./buttons");
   client.handleCommands(commandFiles, "./commands");
   client.handleEvents(eventFiles, "./events");
-  client.handleButtons(buttonFiles, "./buttons");
+  
   client.login(process.env['DISCORD_TOKEN']);
 })();

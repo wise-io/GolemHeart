@@ -67,7 +67,7 @@ module.exports = {
       if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') { threadType = 'GUILD_PRIVATE_THREAD'; }
     }
     const thread = await channel.threads.create({
-      name: interaction.options.getString('title'),
+      name: `🔸${interaction.options.getString('title')}`,
       autoArchiveDuration: timeout,
       type: threadType,
       reason: `Thread created by GolemHeart using the /brew command, initiated by ${interaction.user}.`,
