@@ -34,12 +34,12 @@ module.exports = {
 
   async execute(interaction, client) {
 
-    //Check if decklist is valid url
-    let decklistURL = '';
-    try {
-      decklistURL = new URL(interaction.options.getString('decklist'));
-    } catch (error) {
-      await interaction.reply({ content: 'The submitted deck list was not a valid URL. Please try again.', ephemeral: true });
+    //Check if decklist url is on allowlist
+    const decklistURL = interaction.options.getString('decklist');
+    const isDomainAllowed = client.isURLAllowed(decklistURL);
+    if (isDomainAllowed === false) {
+      const allowedDomains = "```" + client.urlAllowlist.join("\n") + "```"
+      await interaction.reply({ content: `GolemHeart supports the following online deck builders:${allowedDomains}\nTo request support for a site, see here: <https://github.com/wise-io/GolemHeart/issues/25>`, ephemeral: true });
       return;
     }
 
