@@ -1,10 +1,5 @@
-# dotenv environment variables file
+.breakpoints
 .env
-
-# Package Files
+local.patch
 node_modules/
 package-lock.json
-
-# Other environment specific files
-local.patch
-.breakpoints

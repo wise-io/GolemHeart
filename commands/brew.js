@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
-const Database = require("@replit/database");
-const db = new Database();
+const guildProfile = require('../schemas/guildSchema.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -44,13 +43,15 @@ module.exports = {
     }
 
     //Get brew channel from database
-    let channel = '';
-    const guildObject = await db.get('g' + interaction.guild.id);
-    if (guildObject == null || guildObject.brew_channel === undefined) {
+    let channel;
+    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('brewChannelID').exec();
+    const channelID = guildDBObject.brewChannelID;
+    console.log(channelID);
+    if (channelID == undefined) {
       await interaction.reply({ content: 'The brew command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
       return;
     } else {
-      channel = await client.channels.fetch(guildObject.brew_channel);
+      channel = await client.channels.fetch(channelID);
     }
 
     //Determine guild tier and set thread timeout to maximum value
@@ -64,7 +65,9 @@ module.exports = {
     //Create thread
     let threadType = 'GUILD_PUBLIC_THREAD';
     if (interaction.options.getBoolean('private') === 'TRUE') {
-      if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') { threadType = 'GUILD_PRIVATE_THREAD'; }
+      if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') {
+        threadType = 'GUILD_PRIVATE_THREAD';
+      }
     }
     const thread = await channel.threads.create({
       name: `🔸${interaction.options.getString('title')}`,
@@ -79,7 +82,7 @@ module.exports = {
       .setTitle(`${interaction.user.username}'s Brew`)
       .setDescription(`${interaction.user} has started a brew! You can find the [decklist here](${decklistURL} '${decklistURL}'). @Mention your friends to get started, and have fun!`)
       .setURL(decklistURL)
-      .setFooter(`Created by GolemHeart using the /brew command`, interaction.user.displayAvatarURL())
+      .setFooter({ text: `Created by GolemHeart using the /brew command`, iconURL: interaction.user.displayAvatarURL() })
       .setTimestamp()
       .addFields(
         { name: 'Strategy', value: "```" + `${interaction.options.getString('strategy')}` + "```" },

@@ -17,4 +17,4 @@ module.exports = (client) => {
     'https://www.mtggoldfish.com/',
     'https://scryfall.com/',
   ];
-}
+};

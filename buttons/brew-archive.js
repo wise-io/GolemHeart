@@ -3,4 +3,4 @@ module.exports = {
   async execute(interaction, client) {
     client.archiveBrew(interaction, {});
   }
-}
+};
