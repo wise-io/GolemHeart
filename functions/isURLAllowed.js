@@ -8,6 +8,7 @@ module.exports = (client) => {
   client.urlAllowlist = [
     'https://aetherhub.com/',
     'https://archidekt.com/',
+    'https://cubecobra.com/',
     'https://deckbox.org/',
     'https://deckstats.net/',
     'https://manastack.com/',
