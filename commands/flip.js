@@ -1,68 +1,90 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageAttachment, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const userProfile = require('../schemas/userSchema.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('flip')
     .setDescription('Flips a coin and returns the result.')
-    .addIntegerOption(option =>
+    .addStringOption(option =>
       option.setName('call')
         .setDescription('Call the flip.')
         .setRequired(false)
-        .addChoice('Heads', 0)
-        .addChoice('Tails', 1)
+        .addChoice('heads', 'heads')
+        .addChoice('tails', 'tails')
     ),
-  async execute(interaction) {
-    const file = new MessageAttachment('./assets/mtg_coin.png');
-    const result = (Math.random() < 0.5);
-    const call = interaction.options.getInteger('call');
+  async execute(interaction, client) {
+    // Flip variables
+    const call = interaction.options.getString('call');
+    const flip = await client.flipCoin(call);
+
+    // Database variables
     const filter = { _id: interaction.user.id, 'guilds.guildID': interaction.guild.id };
-    let update;
+    const update = { $inc: { 'guilds.$.flips': 1, 'guilds.$.flipCalls': flip.called, 'guilds.$.flipWins': flip.win } };
+    const user = await userProfile.findOneAndUpdate(filter, update, { new: true });
+    const stats = user.guilds.find(x => x.guildID === interaction.guild.id);
+    const winPct = ((stats.flipWins / stats.flipCalls) * 100).toFixed(0);
 
-    let embed = new MessageEmbed()
-      .setTitle(`Let's Flip a Coin!`)
-      .setThumbnail('attachment://mtg_coin.png')
+    // Embed variables 
+    let embed, color, description, footer, row, disableButton;
+    const flavorText = await client.getFlavorText('flip');
+    const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/mtg_coin.png';
+    const title = `Let's Flip a Coin!`;
 
-    // Called Flips
-    if (call !== null) {
-      let callString;
-      if (call == 0) { callString = 'heads'; } else { callString = 'tails'; }
-      if (call == result) {
-        update = { $inc: { 'guilds.$.flips': 1, 'guilds.$.flipCalls': 1, 'guilds.$.flipWins': 1 } };
-        embed = new MessageEmbed(embed)
-          .setColor('#00A300')
-          .setDescription(`${interaction.user} called **${callString}** and won the flip. Nice call!`)
+    // Flip without call
+    if (call == null) {
+      color = '#FFB005'; //Gold
+      description = `${interaction.user} got **${flip.result}**!`;
+      footer = `${interaction.user.username} has flipped ${stats.flips} coins.`;
+
+      row = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId(`flip-noCall`)
+            .setLabel(`Flip Another Coin`)
+            .setStyle('SECONDARY'),
+        )
+      
+    } else {
+      // Flip with call
+      footer = `${interaction.user.username} has won ${winPct}% of their calls.`;
+
+      if (call == flip.result) {
+        color = '#3ba55b'; //Green
+        description = `${interaction.user} called **${call}** and ` + "`won` the flip. ```Consecutive Wins: 1```";
+        disableButton = false;
       } else {
-        update = { $inc: { 'guilds.$.flips': 1, 'guilds.$.flipCalls': 1 } };
-        embed = new MessageEmbed(embed)
-          .setColor('#FF0000')
-          .setDescription(`${interaction.user} called **${callString}** and lost the flip. Better luck next time!`)
+        color = '#ec4245'; //Red
+        description = `${interaction.user} called **${call}** and ` + "`lost` the flip.";
+        disableButton = true;
       }
 
-      // Uncalled flips
-    } else {
-      update = { $inc: { 'guilds.$.flips': 1 } };
-      let resultString;
-      if (result == 0) { resultString = 'heads'; } else { resultString = 'tails'; }
-      embed = new MessageEmbed(embed)
-        .setColor('#FFB005')
-        .setDescription(`${interaction.user} got **${resultString}**!`)
+      row = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId(`flip-heads`)
+            .setLabel(`Flip - Heads`)
+            .setStyle('SECONDARY')
+            .setDisabled(disableButton),
+
+          new MessageButton()
+            .setCustomId(`flip-tails`)
+            .setLabel(`Flip - Tails`)
+            .setStyle('SECONDARY')
+            .setDisabled(disableButton),
+        )
     }
 
-    // Update user stats
-    const userDBObject = await userProfile.findOneAndUpdate(filter, update, { new: true });
-    let userStats = userDBObject.guilds.find(x => x.guildID === interaction.guild.id);
-    let userStatsString;
-    if (call !== null) {
-      const userWinPercentage = ((userStats.flipWins / userStats.flipCalls) * 100).toFixed(0);
-      userStatsString = `${interaction.user.username} wins ${userWinPercentage}% of their calls.`;
-    } else {
-      userStatsString = `${interaction.user.username} has flipped ${userStats.flips} coins.`;
-    }
-    embed = new MessageEmbed(embed)
-      .setFooter({ text: userStatsString, iconURL: interaction.user.displayAvatarURL() });
+    // Create embed
+    embed = new MessageEmbed()
+      .setTitle(title)
+      .setThumbnail(thumbnail)
+      .setColor(color)
+      .setDescription(description)
+      .setFooter({ text: footer, iconURL: interaction.user.displayAvatarURL() })
+      .addField('\u200b', flavorText, false);
 
-    await interaction.reply({ embeds: [embed], files: [file] });
+    // Send reply
+    await interaction.reply({ embeds: [embed], components: [row] });
   },
 };
