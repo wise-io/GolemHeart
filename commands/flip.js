@@ -28,7 +28,7 @@ module.exports = {
     // Embed variables 
     let embed, color, description, footer, row, disableButton;
     const flavorText = await client.getFlavorText('flip');
-    const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/mtg_coin.png';
+    const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-coin.png';
     const title = `Let's Flip a Coin!`;
 
     // Flip without call

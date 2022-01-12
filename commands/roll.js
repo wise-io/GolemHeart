@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageAttachment, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -39,11 +39,10 @@ module.exports = {
 
     //Create embed
     let rollString = `\n\n_Hint: ${interaction.user.username} used /roll ${dice}_`;
-    const file = new MessageAttachment('./assets/game_die.png');
     let embed = new MessageEmbed()
       .setColor('#e8586d')
       .setTitle("Let's Roll!")
-      .setThumbnail('attachment://game_die.png')
+      .setThumbnail('https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-die.png')
 
     let results = [];
     let temp = 0;
@@ -65,7 +64,7 @@ module.exports = {
         .setDescription(`${interaction.user} rolled a D${sides} and got a ${resultString}!${rollString}`);
 
       //Send reply
-      await interaction.reply({ embeds: [embed], files: [file] });
+      await interaction.reply({ embeds: [embed] });
 
     } else {
       // Calculate results
@@ -123,7 +122,7 @@ module.exports = {
         .setDescription(`${interaction.user} rolled ${quantityString} D${sides} dice. Here are the results!${resultString}${rollString}`)
 
       //Send reply
-      await interaction.reply({ embeds: [embed], files: [file], components: [row] });
+      await interaction.reply({ embeds: [embed], components: [row] });
     }
   },
 };
