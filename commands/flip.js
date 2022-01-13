@@ -54,7 +54,7 @@ module.exports = {
     if (call == null) {
       color = '#f3d758'; //Gold
       title = `${interaction.user.username} Flipped ${qtyString}`
-      description = "Results: `" + `${results}` + "`";
+      description = "```Results: " + `${results}` + "```\n" + `${flavorText}`;
       footer = `${interaction.user.username} has flipped ${stats.flips} coins.`;
     } else {
       if (flip.calls == flip.wins) { color = '#3ba55b'; } else { color = '#ec4245'; }
