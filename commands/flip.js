@@ -54,16 +54,16 @@ module.exports = {
     if (call == null) {
       color = '#f3d758'; //Gold
       title = `${interaction.user.username} Flipped ${qtyString}`
-      description = "```Results: " + `${results}` + "```\n" + `${flavorText}`;
+      description = "```Results: " + results + "```\n" + flavorText;
       footer = `${interaction.user.username} has flipped ${stats.flips} coins.`;
     } else {
       if (flip.calls == flip.wins) { color = '#3ba55b'; } else { color = '#ec4245'; }
       title = `${interaction.user.username} Called ${call[0].toUpperCase() + call.slice(1)}`;
       footer = `${interaction.user.username} has won ${winPct}% of their calls.`;
       if (flip.qty == '1') {
-        description = "```Wins: " + `${flip.wins}` + "\nResults: " + `${results}` + "```\n" + `${flavorText}`;
+        description = "```Wins: " + flip.wins + "\nResults: " + results + "```\n" + flavorText;
       } else {
-        description = "```Wins (Consecutive): " + `${flip.wins} (${flip.conwins})` + "\nResults: " + `${results}` + "```\n" + `${flavorText}`;
+        description = "```Wins (Consecutive): " + `${flip.wins} (${flip.conwins})` + "\nResults: " + results + "```\n" + flavorText;
       }
     }
 

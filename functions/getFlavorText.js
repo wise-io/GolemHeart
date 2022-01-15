@@ -3,7 +3,7 @@ module.exports = (client) => {
 
     let flavorText;
 
-    const flipFlavorText = [
+    const flipFlavor = [
 
       `“I believe the spell to have a 50% failure rate. I must be careful, lest I lose my sanity to the unbending force of pure, untempered time.” —Journal of Sigbar the Cautious`,
 
@@ -53,10 +53,36 @@ module.exports = (client) => {
 
     ];
 
-    if (type === 'flip'){
-      flavorText = '>>> _' + flipFlavorText[Math.floor(Math.random() * flipFlavorText.length)] + '_';
+    const rollFlavor = [
+      
+      `From fuzzy to ferocious in an instant. —Bag of Tricks`,
+
+      `As long as it’s never left empty, this magic pouch produces coins every dawn. —Bucknard's Everfull Purse`,
+
+      `“How do you kill what’s already dead? That’s how.” —Critical Hit`,
+
+      `Much more painful than mere regret. —Maddening Hex`,
+
+      `Each configuration reveals a potential future. —Netherese Puzzle-Ward`,
+
+      `The goblin word for “vacation” translates roughly to “a battered landscape of noise and violence.” —The Space Family Goblinson`,
+
+      `“My grandmother saved the life of a brass dragon, and in return she was given a glimpse of the fire in its heart—a glimpse she passed down to me.” —Brazen Dwarf`,
+
+      `“A pact is a tool, not a damnation.” —Farideh, Devil's Chosen`,
+
+      `Unlike most warlocks, those who make pacts with archfey are drawn to pranks and whimsy moreso than death and darkness. —Feywild Trickster`,
+
+      `Pixies are well known as pranksters, but some delight in more helpful magic. —Pixie Guide`,
+
+    ];
+
+    if (type === 'flip') {
+      flavorText = '>>> _' + flipFlavor[Math.floor(Math.random() * flipFlavor.length)] + '_';
+    } else if (type === 'roll') {
+      flavorText = '>>> _' + rollFlavor[Math.floor(Math.random() * rollFlavor.length)] + '_';
     } else {
-      flavorText = '>>> _' + `The heart of a golem gives life to more than just the iron husk around it.\n—Golem's Heart` + '_';
+      flavorText = '>>> _' + `The heart of a golem gives life to more than just the iron husk around it. —Golem's Heart` + '_';
     }
 
     return flavorText;
