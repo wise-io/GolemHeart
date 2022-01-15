@@ -46,7 +46,6 @@ module.exports = {
     let channel;
     const guildDBObject = await guildProfile.findById(interaction.guild.id).select('brewChannelID').exec();
     const channelID = guildDBObject.brewChannelID;
-    console.log(channelID);
     if (channelID == undefined) {
       await interaction.reply({ content: 'The brew command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
       return;
@@ -80,7 +79,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Brew`)
-      .setDescription(`${interaction.user} has started a brew! You can find the [decklist here](${decklistURL} '${decklistURL}'). @Mention your friends to get started, and have fun!`)
+      .setDescription(`${interaction.user} has started a new brew. You can find the **[decklist here](${decklistURL} '${decklistURL}')**. @Mention your friends to get started, and have fun!`)
       .setURL(decklistURL)
       .setFooter({ text: `Created by GolemHeart using the /brew command`, iconURL: interaction.user.displayAvatarURL() })
       .setTimestamp()
@@ -108,6 +107,6 @@ module.exports = {
     //Send embed, pin it, invite members, and send confirmation message
     await thread.send({ embeds: [embed], components: [row] }).then(message => message.pin());
     await thread.members.add(interaction.user.id);
-    await interaction.reply({ content: 'Your thread has been created. Have fun brewing!', ephemeral: true });
+    await interaction.reply({ content: `${interaction.user} has started a new brew. You can join them in the ${thread} thread. Have fun brewing together!` });
   },
 };
