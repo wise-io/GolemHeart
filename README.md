@@ -1,44 +1,11 @@
----
-description: General Information
----
+![GolemHeart Logo](https://user-images.githubusercontent.com/7505105/147615618-b2178aa2-55ef-491e-a1e3-fa557b639c6b.png)
 
 # GolemHeart
 
-## About
+_The heart of a golem gives life to more than just the iron husk around it._
 
-{% hint style="info" %}
-**Fun Fact:** The name and artwork for GolemHeart were inspired by it's namesake magic card, [Golem's Heart](https://scryfall.com/card/som/161/golems-heart). Similar to the card's flavor text, GolemHeart's functionality is designed to "give life" to MTG Discord communities.
-{% endhint %}
+GolemHeart is a new MTG Discord bot designed to enhance public or private MTG discord communities. GolemHeart's features are designed to encourage members to brew decks together, make it easier to play together online, and increase engagement with the community.
 
-> _The heart of a golem gives life to more than just the iron husk around it._
-
-GolemHeart is an open source Discord bot designed to enhance public or private MTG Discord communities. GolemHeart's features are designed to encourage members to brew decks together, make it easier to play together online, and increase engagement in your community.
-
-## Features
-
-With GolemHeart, you can:
-
-{% content-ref url="user-commands/brew.md" %}
-[brew.md](user-commands/brew.md)
-{% endcontent-ref %}
-
-{% content-ref url="user-commands/flip.md" %}
-[flip.md](user-commands/flip.md)
-{% endcontent-ref %}
-
-{% content-ref url="user-commands/roll.md" %}
-[roll.md](user-commands/roll.md)
-{% endcontent-ref %}
-
-{% content-ref url="user-commands/wishlist.md" %}
-[wishlist.md](user-commands/wishlist.md)
-{% endcontent-ref %}
-
-## Special Thanks
-
-* [**Tobias Vyseri**](https://vyseri.com) for designing all custom assets used by GolemHeart
-* My Discord play group for helping inspire GolemHeart and providing invaluable feedback
-
-{% hint style="info" %}
-_**GolemHeart** is unofficial Fan Content permitted under the_ [_Fan Content Policy_](https://company.wizards.com/en/legal/fancontentpolicy)_. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC._
-{% endhint %}
+**Note:** The bot is currently in the very early stages of development and is not yet available to invite to your Discord server. If you have an idea that would be useful to your MTG community, be sure to submit it in the [Issue Tracker](../../issues).
+___
+**GolemHeart** is unofficial Fan Content permitted under the [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy). Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.
