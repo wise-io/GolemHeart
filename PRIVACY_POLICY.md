@@ -17,7 +17,7 @@ The words of which the initial letter is capitalized have meanings defined under
 For the purposes of this Privacy Policy:
 
 - **Account** means a unique account created for You to access our Service or parts of our Service.
-- **Application** means the software program provided by @wise-io, named GolemHeart.
+- **Application** means the software program provided by [@wise-io](https://github.com/wise-io), named GolemHeart.
 - **Device** means any device that can access the Service such as a computer, a cellphone or a digital tablet.
 - **Personal Data** is any information that relates to an identified or identifiable individual.
 - **Service** refers to the Application.
