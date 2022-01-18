@@ -53,14 +53,6 @@ module.exports = {
       channel = await client.channels.fetch(channelID);
     }
 
-    //Determine guild tier and set thread timeout to maximum value
-    let timeout = 1440;
-    if (interaction.guild.premiumTier === 'TIER_1') {
-      timeout = 4320;
-    } else if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') {
-      timeout = 10080;
-    }
-
     //Create thread
     let threadType = 'GUILD_PUBLIC_THREAD';
     if (interaction.options.getBoolean('private') === 'TRUE') {
@@ -82,7 +74,6 @@ module.exports = {
       .setDescription(`${interaction.user} has started a new brew. You can find the **[decklist here](${decklistURL} '${decklistURL}')**. @Mention your friends to get started, and have fun!`)
       .setURL(decklistURL)
       .setFooter({ text: `Created by GolemHeart using the /brew command`, iconURL: interaction.user.displayAvatarURL() })
-      .setTimestamp()
       .addFields(
         { name: 'Strategy', value: "```" + `${interaction.options.getString('strategy')}` + "```" },
         { name: 'Goals', value: "```" + `${interaction.options.getString('goals')}` + "```" },

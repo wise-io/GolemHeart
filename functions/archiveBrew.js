@@ -5,10 +5,9 @@ module.exports = (client) => {
     const thread = await client.channels.fetch(interaction.channel.id);
     const threadMessages = await thread.messages.fetch({ after: 1, limit: 1 });
     const message = threadMessages.first();
-    const brewer = message.mentions.users.first();
 
     const isThreadActive = !thread.archived;
-    const isUserBrewer = interaction.member === brewer;
+    const isUserBrewer = message.embeds[0].description.includes(interaction.user.id);
     const isUserAdmin = interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR);
 
     let actionString = 'archived';
@@ -24,7 +23,7 @@ module.exports = (client) => {
       await thread.setArchived(true);
       return;
     } else {
-      await interaction.reply({ content: `Only ${brewer} or an admin can archive/lock this thread.`, ephemeral: true });
+      await interaction.reply({ content: `Only the user who initiated this brew or an admin can archive/lock this thread.`, ephemeral: true });
     }
   }
 };
