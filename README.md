@@ -1,11 +1,9 @@
-![GolemHeart Logo](https://user-images.githubusercontent.com/7505105/147615618-b2178aa2-55ef-491e-a1e3-fa557b639c6b.png)
-
 # GolemHeart
 
 _The heart of a golem gives life to more than just the iron husk around it._
 
-GolemHeart is a new MTG Discord bot designed to enhance public or private MTG discord communities. GolemHeart's features are designed to encourage members to brew decks together, make it easier to play together online, and increase engagement with the community.
+GolemHeart is an open source Discord bot designed to enhance public or private MTG Discord communities. GolemHeart's features are designed to encourage members to brew decks together, make it easier to play together online, and increase engagement in your community.
 
-**Note:** The bot is currently in the very early stages of development and is not yet available to invite to your Discord server. If you have an idea that would be useful to your MTG community, be sure to submit it in the [Issue Tracker](../../issues).
+Documentation for GolemHeart can be found at https://docs.golemheart.io/.
 ___
 **GolemHeart** is unofficial Fan Content permitted under the [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy). Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.
