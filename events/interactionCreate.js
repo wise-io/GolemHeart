@@ -12,7 +12,7 @@ module.exports = {
       await userProfile.updateOne(userDBObject, { $push: { guilds: guildDBObject } });
     } catch (error) {
       console.error(error);
-      await interaction.reply({ content: 'There was an accesing the database. Please report this issue at <https://golemheart.io/issues>.', ephemeral: true });
+      await interaction.reply({ content: 'There was an error accesing the database. Please report this issue at <https://golemheart.io/issues>.', ephemeral: true });
     }
 
     // Execute commands

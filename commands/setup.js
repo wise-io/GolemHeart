@@ -15,6 +15,10 @@ module.exports = {
             .setName('channel')
             .setDescription('Select a channel to create brewing threads in')
             .setRequired(true))
+        .addBooleanOption(option =>
+          option
+            .setName('enabled')
+            .setDescription('Enabled or disable the brew command'))
     )
     .addSubcommand(subcommand =>
       subcommand
@@ -23,8 +27,12 @@ module.exports = {
         .addChannelOption(option =>
           option
             .setName('channel')
-            .setDescription('Select a channel to send user wishlists in')
+            .setDescription('Select a channel to send user wishlists')
             .setRequired(true))
+        .addBooleanOption(option =>
+          option
+            .setName('enabled')
+            .setDescription('Enabled or disable the wishlist command'))
     ),
 
   async execute(interaction) {
@@ -34,19 +42,24 @@ module.exports = {
       return;
     }
 
+    let enabled, statusString, replyString, update;
+    const command = interaction.options.getSubcommand();
     const channel = interaction.options.getChannel('channel');
-    let updateCommand;
-    let replyString;
+    enabled = interaction.options.getBoolean('enabled');
+    if (enabled == null) { enabled = true; }
+    if (enabled) { statusString = 'enabled'; } else { statusString = 'disabled'; }
 
-    if (interaction.options.getSubcommand() === 'brew') {
-      updateCommand = { brewChannelID: channel.id };
-      replyString = `Brewing threads will be created in the ${channel} channel.`;
-    } else if (interaction.options.getSubcommand() === 'wishlist') {
-      updateCommand = { wishlistChannelID: channel.id };
-      replyString = `Wishlists will be sent to the ${channel} channel.`;
+    if (command === 'brew') {
+      update = { $set: { 'brew.channelID': channel.id, 'brew.enabled': enabled } };
+      replyString = `The ${command} command is now ${statusString}.`;
+      if (enabled) { replyString = replyString + ` Brewing threads will be created in the ${channel} channel.`; }
+    } else if (command === 'wishlist') {
+      update = { $set: { 'wishlist.channelID': channel.id, 'wishlist.enabled': enabled } };
+      replyString = `The ${command} command is now ${statusString}.`;
+      if (enabled) { replyString = replyString + ` Wishlists will be sent to the ${channel} channel.`; }
     }
 
-    await guildProfile.updateOne({ _id: interaction.guild.id }, updateCommand, { upsert: true });
+    await guildProfile.findByIdAndUpdate(interaction.guild.id, update, { upsert: true });
     await interaction.reply({ content: replyString, ephemeral: true });
   },
 };

@@ -25,10 +25,11 @@ module.exports = {
 
     //Get wishlist channel from database
     let channel;
-    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('wishlistChannelID').exec();
-    const channelID = guildDBObject.wishlistChannelID;
-    if (channelID == undefined) {
-      await interaction.reply({ content: 'The wishlist command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
+    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('wishlist.$.channelID').exec();
+    const isWishlistEnabled = guildDBObject.wishlist.enabled;
+    const channelID = guildDBObject.wishlist.channelID;
+    if (!isWishlistEnabled || channelID == undefined) {
+      await interaction.reply({ content: 'The wishlist command has not been setup or is disabled in this server. Please contact a server admin for assistance.', ephemeral: true });
       return;
     } else {
       channel = await client.channels.fetch(channelID);
@@ -38,13 +39,14 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Wishlist`)
-      .setDescription(`${wishlistURL}\n-----\n Please message ${interaction.user} directly if you would like to send them items on their wishlist. Thanks for making our community a great place!`)
+      .setDescription(`${wishlistURL}\n-----\n Please message ${interaction.user} directly if you would like to send or trade them items on their wishlist. Thanks for making our community a great place!`)
       .setURL(wishlistURL)
       .setThumbnail(interaction.user.displayAvatarURL())
-      .setFooter({ text: 'Please remember, this is for gifting purposes only.', iconURL: interaction.guild.iconURL() })
+      .setFooter({ text: `Follow all gifting & trading rules of the ${interaction.guild.name} server`, iconURL: interaction.guild.iconURL() })
 
-    //Send reply
+    // Send reply
     await channel.send({ embeds: [embed] });
     await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
+
   },
 };

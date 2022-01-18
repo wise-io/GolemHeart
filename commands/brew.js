@@ -33,7 +33,7 @@ module.exports = {
 
   async execute(interaction, client) {
 
-    //Check if decklist url is on allowlist
+    // Check if decklist url is on allowlist
     const decklistURL = interaction.options.getString('decklist');
     const isDomainAllowed = client.isURLAllowed(decklistURL);
     if (isDomainAllowed === false) {
@@ -42,18 +42,19 @@ module.exports = {
       return;
     }
 
-    //Get brew channel from database
+    // Get brew channel from database
     let channel;
-    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('brewChannelID').exec();
-    const channelID = guildDBObject.brewChannelID;
-    if (channelID == undefined) {
-      await interaction.reply({ content: 'The brew command has not been setup in this server. Please contact a server admin for assistance.', ephemeral: true });
+    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('brew.channelID').exec();
+    const isBrewEnabled = guildDBObject.brew.enabled;
+    const channelID = guildDBObject.brew.channelID;
+    if (!isBrewEnabled || channelID == undefined) {
+      await interaction.reply({ content: 'The brew command has not been setup or is disabled in this server. Please contact a server admin for assistance.', ephemeral: true });
       return;
     } else {
       channel = await client.channels.fetch(channelID);
     }
 
-    //Create thread
+    // Create thread
     let threadType = 'GUILD_PUBLIC_THREAD';
     if (interaction.options.getBoolean('private') === 'TRUE') {
       if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') {
@@ -62,12 +63,11 @@ module.exports = {
     }
     const thread = await channel.threads.create({
       name: `🔸${interaction.options.getString('title')}`,
-      autoArchiveDuration: timeout,
       type: threadType,
       reason: `Thread created by GolemHeart using the /brew command, initiated by ${interaction.user}.`,
     });
 
-    //Create embed
+    // Create embed
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Brew`)
@@ -79,7 +79,7 @@ module.exports = {
         { name: 'Goals', value: "```" + `${interaction.options.getString('goals')}` + "```" },
       )
 
-    //Create buttons
+    // Create buttons
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()
@@ -95,7 +95,7 @@ module.exports = {
           .setStyle('DANGER'),
       )
 
-    //Send embed, pin it, invite members, and send confirmation message
+    // Send embed, pin it, invite members, and send confirmation message
     await thread.send({ embeds: [embed], components: [row] }).then(message => message.pin());
     await thread.members.add(interaction.user.id);
     await interaction.reply({ content: `${interaction.user} has started a new brew. You can join them in the ${thread} thread. Have fun brewing together!` });
