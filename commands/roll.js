@@ -5,7 +5,7 @@ const userProfile = require('../schemas/userSchema.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('roll')
-    .setDescription('Rolls the dice and returns the result.')
+    .setDescription('Rolls dice and returns the results (see https://docs.golemheart.io/commands/roll)')
     .addStringOption(option =>
       option.setName('dice')
         .setDescription("Example: 2d20")
@@ -27,7 +27,7 @@ module.exports = {
     let title, description;
     const flavorText = await client.getFlavorText('roll');
     const color = '#e8586d';
-    const url = 'https://github.com/wise-io/GolemHeart/wiki/Commands#roll';
+    const url = 'https://docs.golemheart.io/commands/roll';
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-die.png';
     const footer = `${interaction.user.username} has rolled ${stats.rolls} dice.`;
 

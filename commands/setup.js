@@ -5,7 +5,7 @@ const guildProfile = require('../schemas/guildSchema.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('setup')
-    .setDescription('Setup Golemheart')
+    .setDescription('Setup Golemheart (see https://docs.golemheart.io/admin/setup)')
     .addSubcommand(subcommand =>
       subcommand
         .setName('brew')

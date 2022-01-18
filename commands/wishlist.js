@@ -5,7 +5,7 @@ const guildProfile = require('../schemas/guildSchema.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('wishlist')
-    .setDescription('Adds your wishlist to the designated channel')
+    .setDescription('Adds your wishlist to the wishlist channel (see https://docs.golemheart.io/commands/wishlist)')
     .addStringOption(option =>
       option
         .setName('link')

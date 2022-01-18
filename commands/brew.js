@@ -5,7 +5,7 @@ const guildProfile = require('../schemas/guildSchema.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('brew')
-    .setDescription('Start a thread to work on a deck list')
+    .setDescription('Starts a thread to work on a deck list (see https://docs.golemheart.io/commands/brew)')
     .addStringOption(option =>
       option.setName('title')
         .setDescription('Set the thread title')

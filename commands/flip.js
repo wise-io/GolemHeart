@@ -5,7 +5,7 @@ const userProfile = require('../schemas/userSchema.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('flip')
-    .setDescription('Flips a coin and returns the result.')
+    .setDescription('Flips coins and returns the results (see https://docs.golemheart.io/commands/flip)')
     .addStringOption(option =>
       option.setName('call')
         .setDescription('Call the flip.')
@@ -48,7 +48,7 @@ module.exports = {
     // Embed variables 
     let embed, color, title, description, footer;
     const flavorText = await client.getFlavorText('flip');
-    const url = 'https://github.com/wise-io/GolemHeart/wiki/Commands#flip';
+    const url = 'https://docs.golemheart.io/commands/flip';
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-coin.png';
 
     if (call == null) {
