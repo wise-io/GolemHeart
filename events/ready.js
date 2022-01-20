@@ -3,6 +3,6 @@ module.exports = {
   once: true,
   async execute(client) {
     console.log('Ready!');
-    client.user.setPresence({ activities: [{ name: `mongoDB tutorials.`, type: 'WATCHING' }], status: 'online' });
+    client.user.setPresence({ activities: [{ name: `EDH with friends.`, type: 'PLAYING' }], status: 'online' });
   },
 };
