@@ -7,7 +7,8 @@ description: Permissions required to use GolemHeart.
 ## Required Permissions
 
 {% hint style="info" %}
-[**Privileged Gateway Intents**](https://discord.com/developers/docs/topics/gateway#privileged-intents)**:** GolemHeart uses the **GUILD\_MEMBERS** intent in order to create user profiles when a user joins a server with GolemHeart.
+[**Privileged Gateway Intents**](https://discord.com/developers/docs/topics/gateway#privileged-intents)**:** GolemHeart uses the **GUILD\_MEMBERS** intent in order to create user profiles when a user joins a server with GolemHeart.\
+_No other privileged gateway intents are used._
 {% endhint %}
 
 * **Read Messages**\
