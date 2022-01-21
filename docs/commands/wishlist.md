@@ -4,7 +4,7 @@ description: Usage information for the /wishlist command.
 
 # Share Wishlists
 
-## Command
+## Command Usage
 
 {% hint style="info" %}
 **Purpose:** The wishlist command was designed to encourage server members to share their card wish lists.
@@ -13,7 +13,7 @@ description: Usage information for the /wishlist command.
 **Usage:** `/wishlist` `link`\
 The wishlist command allows users to share their card wish lists to a designated wishlist channel.
 
-**Parameters:**
+**Options:**
 
 The wishlist command has a single `link` parameter. This should be a valid link to a decklist on a supported deck building website.
 

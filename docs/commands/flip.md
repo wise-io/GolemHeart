@@ -4,7 +4,7 @@ description: Usage information for the /flip command.
 
 # Flip Coins
 
-## Command
+## Command Usage
 
 {% hint style="info" %}
 **Purpose:** The flip command was designed to... flip coins!
@@ -13,7 +13,7 @@ description: Usage information for the /flip command.
 **Usage:** `/flip` `call` `quantity`\
 ``The flip command allows users to flip virtual coins for magic cards that require it. If used without parameters, it simply returns `heads` or `tails` at random.
 
-**Parameters:**
+**Options:**
 
 * **Call (optional):** Allows a user to call a flip (heads or tails)\
   _Useful for cards that specify winning a flip, such as_ [_Chance Encounter_](https://scryfall.com/card/mh2/277/chance-encounter)_._
@@ -22,21 +22,15 @@ description: Usage information for the /flip command.
 
 {% tabs %}
 {% tab title="Flip - No Call" %}
-Below is example output for the following: `/flip`
-
-![](<../.gitbook/assets/Screenshot 2022-01-16 164659.png>)
+![/flip](<../.gitbook/assets/Screenshot 2022-01-16 164659.png>)
 {% endtab %}
 
-{% tab title="Flip - Call Heads" %}
-Below is example output for the following: `/flip call:heads`
-
-![](<../.gitbook/assets/Screenshot 2022-01-16 164800.png>)
+{% tab title="Flip - Call" %}
+![/flip call:heads](<../.gitbook/assets/Screenshot 2022-01-16 164800.png>)
 {% endtab %}
 
-{% tab title="Multi-Flip Call Tails" %}
-Below is example output for the following: `/flip call:tails quantity:3`
-
-![](<../.gitbook/assets/Screenshot 2022-01-16 164856.png>)
+{% tab title="Multi-Flip" %}
+![/flip call:tails quantity:3](<../.gitbook/assets/Screenshot 2022-01-16 164856.png>)
 {% endtab %}
 {% endtabs %}
 

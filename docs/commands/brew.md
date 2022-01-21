@@ -4,13 +4,13 @@ description: Usage information for the /brew command.
 
 # Brew Lists
 
-## Command
+## Command Usage
 
 {% hint style="info" %}
 **Purpose:** The brew command was designed to encourage server members to brew new or improve existing decks / cubes / lists together.
 {% endhint %}
 
-**Usage:** `/brew` `title` `strategy` `goals` `decklist`\
+**Usage:** `/brew` `title` `strategy` `goals` `link`\
 The brew command allows users to create discussion threads focused around a particular deck / list they are currently working on. Users can invite their friends to join their brewing threads by @mentioning them.
 
 **Options:**
@@ -18,10 +18,10 @@ The brew command allows users to create discussion threads focused around a part
 * **Title:** The title of the brew
 * **Strategy:** The strategy of the deck
 * **Goals:** What the user wishes to accomplish with the brewing session
-* **Decklist:** A link to the decklist for the brew
+* **Link:** A link to the cube/deck/list for the brew
 
 {% hint style="info" %}
-**Note:** To prevent abuse, the `decklist` parameter only allows URLs from certain sites. For a list of supported sites, or to request support for an additional site, [**click here**.](https://github.com/wise-io/GolemHeart/issues/25)
+**Note:** To prevent abuse, the `link` parameter only allows URLs from certain sites. For a list of supported sites, or to request support for an additional site, [**click here**.](https://github.com/wise-io/GolemHeart/issues/25)
 {% endhint %}
 
 {% tabs %}
