@@ -62,3 +62,7 @@ Using threads for brews has several benefits:
 During setup, it is recommended to create a designated channel to create brewing threads under. By doing this, your brew channel will serve as a "brewing board" that lists all of the brewing threads created by GolemHeart. This helps to increase visibility for your users' brews. \
 \
 For more information on setting up the `/brew` command, please read the documentation on the `/setup` command, linked below.
+
+{% content-ref url="../admin/setup/brew.md" %}
+[brew.md](../admin/setup/brew.md)
+{% endcontent-ref %}

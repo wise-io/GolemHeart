@@ -16,22 +16,24 @@ GolemHeart is an open-source Discord bot designed to enhance public or private M
 
 ## Features
 
+GolemHeart uses [Discord slash commands](https://discord.com/blog/slash-commands-are-here). Take a look and see what's available by typing `/` and browsing the commands for GolemHeart!
+
 With GolemHeart, you can:
 
-{% content-ref url="commands/brew-lists/" %}
-[brew-lists](commands/brew-lists/)
+{% content-ref url="commands/brew.md" %}
+[brew.md](commands/brew.md)
 {% endcontent-ref %}
 
-{% content-ref url="commands/flip-coins/" %}
-[flip-coins](commands/flip-coins/)
+{% content-ref url="commands/flip.md" %}
+[flip.md](commands/flip.md)
 {% endcontent-ref %}
 
-{% content-ref url="commands/roll-dice/" %}
-[roll-dice](commands/roll-dice/)
+{% content-ref url="commands/roll.md" %}
+[roll.md](commands/roll.md)
 {% endcontent-ref %}
 
-{% content-ref url="commands/share-wishlists.md" %}
-[share-wishlists.md](commands/share-wishlists.md)
+{% content-ref url="commands/wishlist.md" %}
+[wishlist.md](commands/wishlist.md)
 {% endcontent-ref %}
 
 ## Special Thanks
@@ -39,6 +41,6 @@ With GolemHeart, you can:
 * My Discord play group for helping inspire GolemHeart and providing invaluable feedback
 * [**Tobias Vyseri**](https://vyseri.com) for designing all custom assets used by GolemHeart
 
-{% hint style="info" %}
+{% hint style="success" %}
 _**GolemHeart** is unofficial Fan Content permitted under the_ [_Fan Content Policy_](https://company.wizards.com/en/legal/fancontentpolicy)_. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC._
 {% endhint %}
