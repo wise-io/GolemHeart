@@ -11,7 +11,7 @@ description: Usage information for the /roll command.
 {% endhint %}
 
 **Usage:** `/roll` `dice`\
-The roll command allows users to roll virtual dice for magic cards that require it. Results for each roll will be returned in an embed. When multiple dice are rolled, a total (sum) of all of the results for that roll will also be returned.&#x20;
+The roll command allows users to roll virtual dice for magic cards that require it and returns the results. When multiple dice are rolled, a total (sum) of all of the results for that roll will also be returned.&#x20;
 
 **Options:**
 

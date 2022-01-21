@@ -15,7 +15,7 @@ description: Setup and recommendations for the /brew command.
 
 **Options:**
 
-* **Channel:** Displays a list of the server's channels. The selected channel is where brewing threads will be created.
+* **Channel:** Displays a list of the server's channels. Brewing threads will be created in the selected channel.
 * **Enabled:** Allows selecting true or false. If false is selected, the `/brew` command will be disabled. If true is selected, or if this option is omitted, the command will be enabled.
 
 ## Recommendations

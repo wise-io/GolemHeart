@@ -11,7 +11,7 @@ description: Usage information for the /flip command.
 {% endhint %}
 
 **Usage:** `/flip` `call` `quantity`\
-``The flip command allows users to flip virtual coins for magic cards that require it. If used without parameters, it simply returns `heads` or `tails` at random.
+``The flip command allows users to flip virtual coins for magic cards that require it. If used without the below options, it simply returns `heads` or `tails` at random.
 
 **Options:**
 

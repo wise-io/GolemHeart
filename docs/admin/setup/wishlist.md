@@ -15,7 +15,7 @@ description: Setup and recommendations for the /wishlist command.
 
 **Options:**
 
-* **Channel:** Displays a list of the server's channels. The selected channel is where wishlist embeds will be sent.
+* **Channel:** Displays a list of the server's channels. Wishlist embeds will be sent to the selected channel.
 * **Enabled:** Allows selecting true or false. If false is selected, the `/wishlist` command will be disabled. If true is selected, or if this option is omitted, the command will be enabled.
 
 ## Recommendations
