@@ -22,8 +22,8 @@ module.exports = {
         .setRequired(true)
     )
     .addStringOption(option =>
-      option.setName('decklist')
-        .setDescription('Provide a link to your current deck list')
+      option.setName('link')
+        .setDescription('Provide a link to your current cube / deck')
         .setRequired(true)
     )
     .addBooleanOption(option =>
@@ -33,8 +33,8 @@ module.exports = {
 
   async execute(interaction, client) {
 
-    // Check if decklist url is on allowlist
-    const decklistURL = interaction.options.getString('decklist');
+    // Check if link is on allowlist
+    const decklistURL = interaction.options.getString('link');
     const isDomainAllowed = client.isURLAllowed(decklistURL);
     if (isDomainAllowed === false) {
       const allowedDomains = "```" + client.urlAllowlist.join("\n") + "```"
@@ -71,7 +71,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor('#6DE194')
       .setTitle(`${interaction.user.username}'s Brew`)
-      .setDescription(`${interaction.user} has started a new brew. You can find the **[decklist here](${decklistURL} '${decklistURL}')**. @Mention your friends to get started, and have fun!`)
+      .setDescription(`${interaction.user} has started a new brew. You can find the **[list here](${decklistURL} '${decklistURL}')**. @Mention your friends to get started, and have fun!`)
       .setURL(decklistURL)
       .setFooter({ text: `Created by GolemHeart using the /brew command`, iconURL: interaction.user.displayAvatarURL() })
       .addFields(
