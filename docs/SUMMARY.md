@@ -19,5 +19,6 @@
 ## Other Information <a href="#misc" id="misc"></a>
 
 * [Permissions](misc/permissions.md)
+* [Supported Sites](https://github.com/wise-io/GolemHeart/issues/25)
 * [Privacy Policy](https://github.com/wise-io/GolemHeart/blob/main/PRIVACY\_POLICY.md)
 * [License](https://github.com/wise-io/GolemHeart/blob/main/LICENSE)
