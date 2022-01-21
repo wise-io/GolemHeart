@@ -22,7 +22,4 @@
 * [Supported Sites](https://github.com/wise-io/GolemHeart/issues/25)
 * [Privacy Policy](https://github.com/wise-io/GolemHeart/blob/main/PRIVACY\_POLICY.md)
 * [License](https://github.com/wise-io/GolemHeart/blob/main/LICENSE)
-
-***
-
-* [✉ Contact](mailto:support@golemheart.io)
+* [Contact](mailto:support@golemheart.io)
