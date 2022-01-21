@@ -18,7 +18,7 @@ GolemHeart is an open-source Discord bot designed to enhance public or private M
 
 GolemHeart uses [Discord slash commands](https://discord.com/blog/slash-commands-are-here). Take a look and see what's available by typing `/` and browsing the commands for GolemHeart!
 
-With GolemHeart, you can:
+**With GolemHeart, you can:**
 
 {% content-ref url="commands/brew.md" %}
 [brew.md](commands/brew.md)
