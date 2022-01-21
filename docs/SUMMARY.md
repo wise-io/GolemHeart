@@ -16,12 +16,8 @@
   * [Setup Brew](admin/setup/brew.md)
   * [Setup Wishlist](admin/setup/wishlist.md)
 
-## Settings
-
-* [Server Settings](settings/server-settings.md)
-* [Permissions](settings/permissions.md)
-
 ## Other Information <a href="#misc" id="misc"></a>
 
+* [Permissions](misc/permissions.md)
 * [Privacy Policy](https://github.com/wise-io/GolemHeart/blob/main/PRIVACY\_POLICY.md)
 * [License](https://github.com/wise-io/GolemHeart/blob/main/LICENSE)
