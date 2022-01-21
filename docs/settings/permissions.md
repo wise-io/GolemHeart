@@ -1,27 +1,42 @@
 ---
-description: Permissions required to use GolemHeart
+description: Permissions required to use GolemHeart.
 ---
 
 # Permissions
 
 ## Required Permissions
 
-* Read Messages
-* Send Messages
-* Send Messages in Threads
-* Create Public Threads
-* Create Private Threads
-* Manage Messages
-* Manage Threads
-* Embed Links
-* Read Message History
-* Use Application Commands
+{% hint style="info" %}
+[**Privileged Gateway Intents**](https://discord.com/developers/docs/topics/gateway#privileged-intents)**:** GolemHeart uses the **GUILD\_MEMBERS** intent in order to create user profiles when a user joins a server with GolemHeart.
+{% endhint %}
+
+* **Read Messages**\
+  _Required to view channels._
+* **Send Messages**\
+  _Required to send messages._
+* **Send Messages in Threads**\
+  _Required to send messages in threads._
+* **Create Public Threads**\
+  _Required to create public threads._
+* **Create Private Threads**\
+  _Required to create private threads._
+* **Manage Messages**\
+  _Required to pin messages._
+* **Manage Threads**\
+  _Required to archive/lock threads._
+* **Embed Links**\
+  _Required to send external links (such as deck lists) in message embeds._
+* **Read Message History**\
+  _Required to modify existing embeds._
+* **Use Application Commands**\
+  _Required to enable slash commands._
 
 ## Permissions for Future Use
 
-* Manage Events
-* Add Reactions
-* Use External Emojis
+* **Manage Events**\
+  ****_Potential use for SpellTable integration._
+* **Use External Emojis**\
+  ****_Potential use for Scryfall integration._
 
 ## Troubleshooting Issues
 
