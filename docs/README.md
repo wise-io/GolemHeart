@@ -40,6 +40,7 @@ GolemHeart uses [Discord slash commands](https://discord.com/blog/slash-commands
 
 * My Discord play group for helping inspire GolemHeart and providing invaluable feedback
 * [**Tobias Vyseri**](https://vyseri.com) for designing all custom assets used by GolemHeart
+* **Wizards of the Coast LLC** for making an awesome card game
 
 {% hint style="success" %}
 _**GolemHeart** is unofficial Fan Content permitted under the_ [_Fan Content Policy_](https://company.wizards.com/en/legal/fancontentpolicy)_. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC._
