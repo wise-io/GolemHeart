@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { PermissionUtils } = require('../utils.js');
 const guildProfile = require('../schemas/guildSchema.js');
 
 module.exports = {
@@ -25,7 +26,7 @@ module.exports = {
 
     //Get wishlist channel from database
     let channel;
-    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('wishlist.$.channelID').exec();
+    const guildDBObject = await guildProfile.findById(interaction.guild.id).exec();
     const isWishlistEnabled = guildDBObject.wishlist.enabled;
     const channelID = guildDBObject.wishlist.channelID;
     if (!isWishlistEnabled || channelID == undefined) {
@@ -45,8 +46,11 @@ module.exports = {
       .setFooter({ text: `Follow all gifting & trading rules of the ${interaction.guild.name} server`, iconURL: interaction.guild.iconURL() })
 
     // Send reply
-    await channel.send({ embeds: [embed] });
-    await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
-
+    if (!(PermissionUtils.canSend(channel, true))) {
+      await interaction.reply({ content: `GolemHeart does not have the necessary permissions to send a wishlist in the ${channel} channel. Please contact a server administrator for assistance.`, ephemeral: true })
+    } else {
+      await channel.send({ embeds: [embed] });
+      await interaction.reply({ content: `Your wishlist has been added to the ${channel} channel.`, ephemeral: true });
+    }
   },
 };

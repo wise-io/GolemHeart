@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { PermissionUtils } = require('../utils.js');
 const guildProfile = require('../schemas/guildSchema.js');
 
 module.exports = {
@@ -33,18 +34,51 @@ module.exports = {
 
   async execute(interaction, client) {
 
+    // Embed variables
+    const color = '#f3d758'; // Gold
+    const title = `${interaction.user.username}'s Brew`;
+    const url = interaction.options.getString('link');
+    const description = `${interaction.user} has started a new brew. You can find the **[list here](${url} '${url}')**. @Mention your friends to get started, and have fun!`;
+    const strategy = "```" + `${interaction.options.getString('strategy')}` + "```";
+    const goals = "```" + `${interaction.options.getString('goals')}` + "```";
+    const footer = { text: `Created by GolemHeart`, iconURL: interaction.user.displayAvatarURL() };
+
+    // Thread variables
+    let channel;
+    const threadName = `🔸${interaction.options.getString('title')}`;
+    const threadReason = `Thread created by GolemHeart using the /brew command, initiated by ${interaction.user}.`;
+    let threadType = 'GUILD_PUBLIC_THREAD';
+    if (interaction.options.getBoolean('private') === 'TRUE') {
+      if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') {
+        threadType = 'GUILD_PRIVATE_THREAD';
+      }
+    }
+
+    // Verify variables meet character length requirements
+    if (threadName.length > 99) {
+      await interaction.reply({ content: 'Please limit your brew title to 99 characters or less.', ephemeral: true });
+      return;
+    }
+    if (strategy.length > 1000) {
+      await interaction.reply({ content: 'Please limit your brew strategy to 1000 characters or less.', ephemeral: true });
+      return;
+    }
+    if (goals.length > 1000) {
+      await interaction.reply({ content: 'Please limit your brew goals to 1000 characters or less.', ephemeral: true });
+      return;
+    }
+
+
     // Check if link is on allowlist
-    const decklistURL = interaction.options.getString('link');
-    const isDomainAllowed = client.isURLAllowed(decklistURL);
-    if (isDomainAllowed === false) {
+    const isDomainAllowed = client.isURLAllowed(url);
+    if (!isDomainAllowed) {
       const allowedDomains = "```" + client.urlAllowlist.join("\n") + "```"
-      await interaction.reply({ content: `GolemHeart supports the following online deck builders:${allowedDomains}\nTo request support for a site, see here: <https://github.com/wise-io/GolemHeart/issues/25>`, ephemeral: true });
+      await interaction.reply({ content: `GolemHeart supports the following online deck builders:${allowedDomains}\nTo request support for a site, see here: <https://golemheart.io/issues/25>`, ephemeral: true });
       return;
     }
 
     // Get brew channel from database
-    let channel;
-    const guildDBObject = await guildProfile.findById(interaction.guild.id).select('brew.channelID').exec();
+    const guildDBObject = await guildProfile.findById(interaction.guild.id).exec();;
     const isBrewEnabled = guildDBObject.brew.enabled;
     const channelID = guildDBObject.brew.channelID;
     if (!isBrewEnabled || channelID == undefined) {
@@ -54,29 +88,16 @@ module.exports = {
       channel = await client.channels.fetch(channelID);
     }
 
-    // Create thread
-    let threadType = 'GUILD_PUBLIC_THREAD';
-    if (interaction.options.getBoolean('private') === 'TRUE') {
-      if (interaction.guild.premiumTier === 'TIER_2' || interaction.guild.premiumTier === 'TIER_3') {
-        threadType = 'GUILD_PRIVATE_THREAD';
-      }
-    }
-    const thread = await channel.threads.create({
-      name: `🔸${interaction.options.getString('title')}`,
-      type: threadType,
-      reason: `Thread created by GolemHeart using the /brew command, initiated by ${interaction.user}.`,
-    });
-
     // Create embed
     const embed = new MessageEmbed()
-      .setColor('#6DE194')
-      .setTitle(`${interaction.user.username}'s Brew`)
-      .setDescription(`${interaction.user} has started a new brew. You can find the **[list here](${decklistURL} '${decklistURL}')**. @Mention your friends to get started, and have fun!`)
-      .setURL(decklistURL)
-      .setFooter({ text: `Created by GolemHeart using the /brew command`, iconURL: interaction.user.displayAvatarURL() })
+      .setColor(color)
+      .setTitle(title)
+      .setDescription(description)
+      .setURL(url)
+      .setFooter(footer)
       .addFields(
-        { name: 'Strategy', value: "```" + `${interaction.options.getString('strategy')}` + "```" },
-        { name: 'Goals', value: "```" + `${interaction.options.getString('goals')}` + "```" },
+        { name: 'Strategy', value: strategy },
+        { name: 'Goals', value: goals },
       )
 
     // Create buttons
@@ -95,9 +116,22 @@ module.exports = {
           .setStyle('DANGER'),
       )
 
-    // Send embed, pin it, invite members, and send confirmation message
-    await thread.send({ embeds: [embed], components: [row] }).then(message => message.pin());
-    await thread.members.add(interaction.user.id);
-    await interaction.reply({ content: `${interaction.user} has started a new brew. You can join them in the ${thread} thread. Have fun brewing together!` });
+    if (!(await PermissionUtils.canSend(channel, true))) {
+      await interaction.reply({ content: `GolemHeart does not have the necessary permissions to create a thread in the ${channel} channel. Please contact a server administrator for assistance.`, ephemeral: true })
+    } else {
+      
+      // Create thread
+      const thread = await channel.threads.create({
+        name: threadName,
+        type: threadType,
+        reason: threadReason,
+      });
+
+      // Send embed, pin it, invite members, and send confirmation message
+      await thread.send({ embeds: [embed], components: [row] }).then(message => message.pin());
+      await thread.members.add(interaction.user.id);
+      await interaction.reply({ content: `${interaction.user} has started a new brew. You can join them in the ${thread} thread. Have fun brewing together!` });
+    }
+
   },
 };
