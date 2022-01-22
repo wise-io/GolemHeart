@@ -12,7 +12,7 @@ module.exports = {
 
     // Create Getting Started embed
     const embed = new MessageEmbed()
-      .setColor('#01aff4')
+      .setColor('#01aff4') // GolemHeart blue
       .setTitle('Thank you for using GolemHeart!')
       .setAuthor({ name: guild.name, iconURL: guild.iconURL() })
       .setDescription('GolemHeart helps your server brew, discuss, and play **Magic: The Gathering!**')

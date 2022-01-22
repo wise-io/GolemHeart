@@ -26,7 +26,7 @@ module.exports = {
     // Embed variables
     let title, description;
     const flavorText = await client.getFlavorText('roll');
-    const color = '#e8586d';
+    const color = '#01aff4'; // GolemHeart Blue
     const url = 'https://docs.golemheart.io/commands/roll';
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-die.png';
     const footer = `${interaction.user.username} has rolled ${stats.rolls} dice.`;

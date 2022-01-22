@@ -35,7 +35,7 @@ module.exports = {
   async execute(interaction, client) {
 
     // Embed variables
-    const color = '#f3d758'; // Gold
+    const color = '#01aff4'; // GolemHeart Blue
     const title = `${interaction.user.username}'s Brew`;
     const url = interaction.options.getString('link');
     const description = `${interaction.user} has started a new brew. You can find the **[list here](${url} '${url}')**. @Mention your friends to get started, and have fun!`;

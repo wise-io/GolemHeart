@@ -38,7 +38,7 @@ module.exports = {
 
     //Create embed
     const embed = new MessageEmbed()
-      .setColor('#6DE194')
+      .setColor('#01aff4') // GolemHeart Blue
       .setTitle(`${interaction.user.username}'s Wishlist`)
       .setDescription(`${wishlistURL}\n-----\n Please message ${interaction.user} directly if you would like to send or trade them items on their wishlist. Thanks for making our community a great place!`)
       .setURL(wishlistURL)
