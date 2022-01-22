@@ -43,3 +43,7 @@ _No other privileged gateway intents are used._
 ## Troubleshooting Issues
 
 If you are experiencing issues with GolemHeart not responding as expected, try giving GolemHeart the **Administrator** permission temporarily. This can help determine if the issue if permission related or not.
+
+Still having issues? Feel free to submit a bug report at the link below.
+
+{% embed url="https://golemheart.io/issues" %}
