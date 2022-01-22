@@ -35,7 +35,7 @@ An example of brew will go here, with an image of the embed that would be genera
 {% endtabs %}
 
 **Optional:** `private`\
-When used, this parameter will make a private thread. Private threads are only visible by server admins and users that have been invited to the thread.&#x20;
+When used, this parameter will make a private thread. Private threads are only visible to server admins and users that have been invited to the thread.&#x20;
 
 {% hint style="warning" %}
 **Note:** Private threads are only available for Discord servers that have been boosted to Level 2 or higher. If the `private` optional parameter is used on a server below this level, a public thread will be created instead.
