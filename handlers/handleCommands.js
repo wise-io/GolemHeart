@@ -17,9 +17,15 @@ module.exports = (client) => {
     (async () => {
       try {
         console.log('Reloading application (/) commands.');
-        await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: client.commandArray });
-        console.log('Successfully reloaded application (/) commands.');
 
+        // Load guild commands in development environment
+        if (guildId == undefined) {
+          await rest.put(Routes.applicationCommands(clientId), { body: client.commandArray });
+        } else {
+          await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: client.commandArray });
+        }
+
+        console.log('Successfully reloaded application (/) commands.');
       } catch (error) {
         console.error(error);
       }
