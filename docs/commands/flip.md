@@ -37,3 +37,16 @@ description: Usage information for the /flip command.
 ## Flavor Text
 
 When the `/flip` command is used, flavor text from a random magic card that mention coin flipping will be added to the returned embed. For a list of cards that may have their flavor text appear on a flip embed, [click here](https://scryfall.com/search?q=%28o%3A%22flip+a+coin%22+OR+o%3A%22coin+flip%22+OR+o%3A%22flips+a+coin%22+OR+o%3A%22coins%22%29+has%3Aflavor\&as=grid\&order=name).
+
+## User Stats
+
+When the `/flip` command is used, GolemHeart keeps track of various user stats on a per-server basis.
+
+* **Flips -** The number of coins a user has flipped
+* **Flip Calls -** The number of times a user has called a flip
+* **Wins -** The number of called flips a user has won
+
+These stats are displayed in the footer of a flip embed in one of two ways:
+
+1. For uncalled flips, the footer will display the total number of coins a user has flipped.
+2. For called flips, the footer will display the win percentage of a user's called flips.

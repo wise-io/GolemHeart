@@ -36,3 +36,7 @@ To be familiar to users who have used other die rolling Discord bots in the past
 ## Flavor Text
 
 When the `/roll` command is used, flavor text from a random magic card that mention rolling a die or dice will be added to the returned embed. For a list of cards that may have their flavor text appear on a roll embed, [click here](https://scryfall.com/search?q=%28oracle%3A%22roll+a%22+OR+oracle%3Adice%29+has%3Aflavor+-name%3A%22troll+ascetic%22\&as=grid\&order=name).
+
+## User Stats
+
+When the `/roll` command is used, GolemHeart displays the number of dice a user has rolled in the server in the footer of a roll embed.
