@@ -18,7 +18,7 @@ The brew command allows users to create discussion threads focused around a part
 * **Title:** The title of the brew
 * **Strategy:** The strategy of the deck
 * **Goals:** What the user wishes to accomplish with the brewing session
-* **Link:** A link to the cube/deck/list for the brew
+* **Link:** A link to the cube / deck / list for the brew
 
 {% hint style="info" %}
 **Note:** To prevent abuse, the `link` parameter only allows URLs from certain sites. For a list of supported sites, or to request support for an additional site, [**click here**.](https://github.com/wise-io/GolemHeart/issues/25)
