@@ -38,6 +38,7 @@ module.exports = {
     const color = '#01aff4'; // GolemHeart Blue
     const title = `${interaction.user.username}'s Brew`;
     const url = interaction.options.getString('link');
+    const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-brew.png';
     const description = `${interaction.user} has started a new brew. You can find the **[list here](${url} '${url}')**. @Mention your friends to get started, and have fun!`;
     const strategy = "```" + `${interaction.options.getString('strategy')}` + "```";
     const goals = "```" + `${interaction.options.getString('goals')}` + "```";
@@ -92,6 +93,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor(color)
       .setTitle(title)
+      .setThumbnail(thumbnail)
       .setDescription(description)
       .setURL(url)
       .setFooter(footer)
