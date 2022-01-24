@@ -43,7 +43,7 @@ module.exports = {
       .setDescription(`${wishlistURL}\n-----\n Please message ${interaction.user} directly if you would like to send or trade them items on their wishlist. Thanks for making our community a great place!`)
       .setURL(wishlistURL)
       .setThumbnail(interaction.user.displayAvatarURL())
-      .setFooter({ text: `Follow all gifting & trading rules of the ${interaction.guild.name} server`, iconURL: interaction.guild.iconURL() })
+      .setFooter({ text: `Follow all gifting & trading rules of ${interaction.guild.name}`, iconURL: interaction.guild.iconURL() })
 
     // Send reply
     if (!(PermissionUtils.canSend(channel, true))) {
