@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed, Modal } = require('discord.js');
 const { PermissionUtils } = require('../utils.js');
 const guildProfile = require('../schemas/guildSchema.js');
 
@@ -35,11 +35,13 @@ module.exports = {
   async execute(interaction, client) {
 
     // Embed variables
+    let userDesignation;
+    if (interaction.member.nickname) { userDesignation = interaction.member.nickname; } else { userDesignation = interaction.user.username; }
     const color = '#01aff4'; // GolemHeart Blue
-    const title = `${interaction.user.username}'s Brew`;
+    const title = `${userDesignation}'s Brew`;
     const url = interaction.options.getString('link');
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-brew.png';
-    const description = `${interaction.user} has started a new brew. You can find the **[list here](${url} '${url}')**. @Mention your friends to get started, and have fun!`;
+    const description = `${interaction.user} has started a new brew. You can find the **[list here](${url} '${url}')**. @Mention members to invite them to the thread. Have fun!`;
     const strategy = "```" + `${interaction.options.getString('strategy')}` + "```";
     const goals = "```" + `${interaction.options.getString('goals')}` + "```";
     const footer = { text: `Created by GolemHeart`, iconURL: interaction.user.displayAvatarURL() };

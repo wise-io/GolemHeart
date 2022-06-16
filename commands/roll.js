@@ -24,7 +24,8 @@ module.exports = {
     const stats = user.guilds.find(x => x.guildID === interaction.guild.id);
 
     // Embed variables
-    let title, description;
+    let title, description, userDesignation;
+    if (interaction.member.nickname) { userDesignation = interaction.member.nickname; } else { userDesignation = interaction.user.username; }
     const flavorText = await client.getFlavorText('roll');
     const color = '#01aff4'; // GolemHeart Blue
     const url = 'https://docs.golemheart.io/commands/roll';
@@ -32,10 +33,10 @@ module.exports = {
     const footer = `${interaction.user.username} has rolled ${stats.rolls} dice.`;
 
     if (roll.qty == 1) {
-      title = `${interaction.user.username} Rolled a ${roll.dice}`;
+      title = `${userDesignation} Rolled a ${roll.dice}`;
       description = "```Results: " + roll.results.join(", ") + "```\n" + flavorText;
     } else {
-      title = `${interaction.user.username} Rolled ${roll.qty} ${roll.dice}`;
+      title = `${userDesignation} Rolled ${roll.qty} ${roll.dice}`;
       description = "```Total: " + roll.total + "\nResults: " + roll.results.join(", ") + "```\n" + flavorText;
     }
 

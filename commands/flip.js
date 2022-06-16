@@ -10,23 +10,27 @@ module.exports = {
       option.setName('call')
         .setDescription('Call the flip.')
         .setRequired(false)
-        .addChoice('heads', 'heads')
-        .addChoice('tails', 'tails')
+        .addChoices(
+          { name: 'heads', value: 'heads' },
+          { name: 'tails', value: 'tails' },
+        )
     )
     .addIntegerOption(option =>
       option.setName('quantity')
         .setDescription('Number of coins to flip.')
         .setRequired(false)
-        .addChoice('1', 1)
-        .addChoice('2', 2)
-        .addChoice('3', 3)
-        .addChoice('4', 4)
-        .addChoice('5', 5)
-        .addChoice('6', 6)
-        .addChoice('7', 7)
-        .addChoice('8', 8)
-        .addChoice('9', 9)
-        .addChoice('10', 10)
+        .addChoices(
+          { name: '1', value: 1 },
+          { name: '2', value: 2 },
+          { name: '3', value: 3 },
+          { name: '4', value: 4 },
+          { name: '5', value: 5 },
+          { name: '6', value: 6 },
+          { name: '7', value: 7 },
+          { name: '8', value: 8 },
+          { name: '9', value: 9 },
+          { name: '10', value: 10 },
+        )
     ),
 
   async execute(interaction, client) {
@@ -46,20 +50,21 @@ module.exports = {
     const winPct = ((stats.flipWins / stats.flipCalls) * 100).toFixed(0);
 
     // Embed variables 
-    let embed, color, title, description, footer;
+    let embed, color, title, description, userDesignation, footer;
+    if (interaction.member.nickname) { userDesignation = interaction.member.nickname; } else { userDesignation = interaction.user.username; }
     const flavorText = await client.getFlavorText('flip');
     const url = 'https://docs.golemheart.io/commands/flip';
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-coin.png';
 
     if (call == null) {
       color = '#f3d758'; //Gold
-      title = `${interaction.user.username} Flipped ${qtyString}`
+      title = `${userDesignation} Flipped ${qtyString}`
       description = "```Results: " + results + "```\n" + flavorText;
-      footer = `${interaction.user.username} has flipped ${stats.flips} coins.`;
+      footer = `${userDesignation} has flipped ${stats.flips} coins.`;
     } else {
       if (flip.calls == flip.wins) { color = '#3ba55b'; } else { color = '#ec4245'; }
-      title = `${interaction.user.username} Called ${call[0].toUpperCase() + call.slice(1)}`;
-      footer = `${interaction.user.username} has won ${winPct}% of their calls.`;
+      title = `${userDesignation} Called ${call[0].toUpperCase() + call.slice(1)}`;
+      footer = `${userDesignation} has won ${winPct}% of their calls.`;
       if (flip.qty == '1') {
         description = "```Wins: " + flip.wins + "\nResults: " + results + "```\n" + flavorText;
       } else {
