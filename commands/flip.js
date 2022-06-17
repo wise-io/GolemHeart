@@ -50,21 +50,20 @@ module.exports = {
     const winPct = ((stats.flipWins / stats.flipCalls) * 100).toFixed(0);
 
     // Embed variables 
-    let embed, color, title, description, userDesignation, footer;
-    if (interaction.member.nickname) { userDesignation = interaction.member.nickname; } else { userDesignation = interaction.user.username; }
+    let embed, color, title, description, footer;
     const flavorText = await client.getFlavorText('flip');
     const url = 'https://docs.golemheart.io/commands/flip';
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-coin.png';
 
     if (call == null) {
       color = '#f3d758'; //Gold
-      title = `${userDesignation} Flipped ${qtyString}`
+      title = `${interaction.member.displayName} Flipped ${qtyString}`
       description = "```Results: " + results + "```\n" + flavorText;
-      footer = `${userDesignation} has flipped ${stats.flips} coins.`;
+      footer = `${interaction.member.displayName} has flipped ${stats.flips} coins.`;
     } else {
       if (flip.calls == flip.wins) { color = '#3ba55b'; } else { color = '#ec4245'; }
-      title = `${userDesignation} Called ${call[0].toUpperCase() + call.slice(1)}`;
-      footer = `${userDesignation} has won ${winPct}% of their calls.`;
+      title = `${interaction.member.displayName} Called ${call[0].toUpperCase() + call.slice(1)}`;
+      footer = `${interaction.member.displayName} has won ${winPct}% of their calls.`;
       if (flip.qty == '1') {
         description = "```Wins: " + flip.wins + "\nResults: " + results + "```\n" + flavorText;
       } else {
@@ -79,7 +78,7 @@ module.exports = {
       .setURL(url)
       .setDescription(description)
       .setThumbnail(thumbnail)
-      .setFooter({ text: footer, iconURL: interaction.user.displayAvatarURL() });
+      .setFooter({ text: footer, iconURL: interaction.member.displayAvatarURL() });
 
     // Send reply
     await interaction.reply({ embeds: [embed] });

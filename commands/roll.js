@@ -24,19 +24,18 @@ module.exports = {
     const stats = user.guilds.find(x => x.guildID === interaction.guild.id);
 
     // Embed variables
-    let title, description, userDesignation;
-    if (interaction.member.nickname) { userDesignation = interaction.member.nickname; } else { userDesignation = interaction.user.username; }
+    let title, description;
     const flavorText = await client.getFlavorText('roll');
     const color = '#01aff4'; // GolemHeart Blue
     const url = 'https://docs.golemheart.io/commands/roll';
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-die.png';
-    const footer = `${interaction.user.username} has rolled ${stats.rolls} dice.`;
+    const footer = `${interaction.member.displayName} has rolled ${stats.rolls} dice.`;
 
     if (roll.qty == 1) {
-      title = `${userDesignation} Rolled a ${roll.dice}`;
+      title = `${interaction.member.displayName} Rolled a ${roll.dice}`;
       description = "```Results: " + roll.results.join(", ") + "```\n" + flavorText;
     } else {
-      title = `${userDesignation} Rolled ${roll.qty} ${roll.dice}`;
+      title = `${interaction.member.displayName} Rolled ${roll.qty} ${roll.dice}`;
       description = "```Total: " + roll.total + "\nResults: " + roll.results.join(", ") + "```\n" + flavorText;
     }
 
@@ -47,7 +46,7 @@ module.exports = {
       .setURL(url)
       .setDescription(description)
       .setThumbnail(thumbnail)
-      .setFooter({ text: footer, iconURL: interaction.user.displayAvatarURL() });
+      .setFooter({ text: footer, iconURL: interaction.member.displayAvatarURL() });
 
     // Send reply
     await interaction.reply({ embeds: [embed] });

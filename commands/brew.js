@@ -35,16 +35,14 @@ module.exports = {
   async execute(interaction, client) {
 
     // Embed variables
-    let userDesignation;
-    if (interaction.member.nickname) { userDesignation = interaction.member.nickname; } else { userDesignation = interaction.user.username; }
     const color = '#01aff4'; // GolemHeart Blue
-    const title = `${userDesignation}'s Brew`;
+    const title = `${interaction.member.displayName}'s Brew`;
     const url = interaction.options.getString('link');
     const thumbnail = 'https://raw.githubusercontent.com/wise-io/GolemHeart/main/assets/gh-brew.png';
     const description = `${interaction.user} has started a new brew. You can find the **[list here](${url} '${url}')**. @Mention members to invite them to the thread. Have fun!`;
     const strategy = "```" + `${interaction.options.getString('strategy')}` + "```";
     const goals = "```" + `${interaction.options.getString('goals')}` + "```";
-    const footer = { text: `Created by GolemHeart`, iconURL: interaction.user.displayAvatarURL() };
+    const footer = { text: `Created by GolemHeart for ${interaction.member.displayName}`, iconURL: interaction.member.displayAvatarURL() };
 
     // Thread variables
     let channel;

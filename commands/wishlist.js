@@ -39,10 +39,10 @@ module.exports = {
     //Create embed
     const embed = new MessageEmbed()
       .setColor('#01aff4') // GolemHeart Blue
-      .setTitle(`${interaction.user.username}'s Wishlist`)
+      .setTitle(`${interaction.member.displayName}'s Wishlist`)
       .setDescription(`${wishlistURL}\n-----\n Please message ${interaction.user} directly if you would like to send or trade them items on their wishlist. Thanks for making our community a great place!`)
       .setURL(wishlistURL)
-      .setThumbnail(interaction.user.displayAvatarURL())
+      .setThumbnail(interaction.member.displayAvatarURL())
       .setFooter({ text: `Follow all gifting & trading rules of ${interaction.guild.name}`, iconURL: interaction.guild.iconURL() })
 
     // Send reply
