@@ -11,6 +11,7 @@ module.exports = (client) => {
     'https://cubecobra.com/',
     'https://deckbox.org/',
     'https://deckstats.net/',
+    'https://manabox.app/',
     'https://manastack.com/',
     'https://www.moxfield.com/',
     'https://mtgarena.pro/',
