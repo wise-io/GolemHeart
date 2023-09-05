@@ -7,7 +7,7 @@
     "@discordjs/rest": "1.7.1",
     "discord-api-types": "0.37.42",
     "discord.js": "13.16.0",
-    "mongoose": "6.11.1",
+    "mongoose": "6.11.3",
     "node": "16.20.0"
   },
   "scripts": {
