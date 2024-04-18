@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@discordjs/builders": "1.6.3",
-    "@discordjs/rest": "1.7.1",
-    "discord-api-types": "0.37.42",
-    "discord.js": "13.16.0",
-    "mongoose": "6.11.3",
-    "node": "16.20.0"
+    "@discordjs/builders": "1.7.0",
+    "@discordjs/rest": "2.0.0",
+    "discord-api-types": "0.37.79",
+    "discord.js": "13.17.1",
+    "mongoose": "^6.12.8",
+    "node": "20.12.2"
   },
   "scripts": {
-    "test": "node index.js"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
