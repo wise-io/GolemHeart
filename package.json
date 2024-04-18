@@ -7,6 +7,7 @@
     "@discordjs/rest": "2.0.0",
     "discord-api-types": "0.37.79",
     "discord.js": "13.17.1",
+    "dotenv": "^16.4.5",
     "mongoose": "^6.12.8",
     "node": "20.12.2"
   },
